@@ -167,7 +167,8 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:src="@mipmap/placeholder_img"
-        android:layout_below="@+id/sp_action_owner_reg" />
+        android:layout_below="@+id/sp_action_owner_reg"
+        />
 
 </RelativeLayout>
 
