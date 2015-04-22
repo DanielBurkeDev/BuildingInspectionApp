@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/dpwgroup" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Project Home:"
+        android:id="@+id/textView3"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="PROJECT NAME HERE!"
+        android:textSize="14dp"
+        android:id="@+id/textView4"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="280dp"
+        android:layout_height="63dp"
+        android:layout_gravity="center_horizontal"
+        android:weightSum="1">
+
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:text="New Actions"
+            android:id="@+id/new_actions"
+            android:onClick="openNewActions"/>
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:text="Live Actions"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/live_actions" />
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:text="Overdue"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/overdue" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="244dp"
+        android:layout_height="50dp"
+        android:textSize="18dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Planned Inspection Events"/>
+
+
+
+    <CalendarView
+        android:layout_gravity="center_horizontal"
+        android:layout_width="295dp"
+        android:layout_height="177dp"
+        android:id="@+id/calendarView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Initiate Unplanned Inspection Event"
+        android:id="@+id/button4"
+        android:layout_gravity="center_horizontal" />
+
+
+</LinearLayout>

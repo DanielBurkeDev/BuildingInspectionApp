@@ -1,22 +1,12 @@
 package inspectplus.dpwgroup.com.inspectplus;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class SplashActivity extends Activity {
@@ -32,28 +22,27 @@ public class SplashActivity extends Activity {
         etUsername = (EditText) findViewById(R.id.et_username);
         etPassword = (EditText) findViewById(R.id.et_password);
 
-        btnLogin = (Button) findViewById(R.id.btn_login);
-        btnLogin.setOnClickListener(new ButtonListener());
+        Button btnLogin = (Button) findViewById(R.id.btn_login);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
 
+                Intent intent = new Intent(SplashActivity.this, RegisteredProjectsActivity.class);
+                startActivity(intent);
 
-    }
-
-    private class ButtonListener implements View.OnClickListener {
-        public void onClick(View v) {
-            Intent intent;
-            switch (v.getId()) {
-                case R.id.btn_login:
-                    Toast.makeText(getApplicationContext(), "Login Button Selected",
-                            Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    Toast.makeText(getApplicationContext(), "No options selected",
-                            Toast.LENGTH_SHORT).show();
             }
+        });
 
-        }
+
     }
-
-
 }
+
+
+
+
+
+
+
+
+
