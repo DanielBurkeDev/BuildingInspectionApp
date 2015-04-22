@@ -6,7 +6,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="inspectplus.dpwgroup.com.inspectplus.InspectionEventsActivity">
+    tools:context="inspectplus.dpwgroup.com.inspectplus.InspectionEventsActivity"
+    android:scrollbars="vertical">
 
     <TextView
         android:id="@+id/tv_assigned_certifier_title"
@@ -76,12 +77,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_project_number" />
+
     <TextView
         android:id="@+id/tv_inspection_plan_ref_number_title"
         android:text="@string/tv_inspection_plan_ref_number_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_project_name" />
+
     <TextView
         android:id="@+id/tv_inspection_plan_ref_number_planned_inspection_title"
         android:text="@string/tv_planned_inspections_title"
@@ -95,4 +98,76 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_inspection_plan_ref_number_planned_inspection_title" />
+
+    <TextView
+        android:id="@+id/tv_inspection_event_category_title"
+        android:text="@string/tv_inspection_event_category_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_inspection_plan_ref_number_unplanned_inspection_title" />
+
+    <TextView
+        android:id="@+id/tv_inspection_event_category_planned_insp_title"
+        android:text="@string/tv_planned_inspections_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_inspection_event_category_title" />
+
+    <TextView
+        android:id="@+id/tv_inspection_event_category_unplanned_insp_title"
+        android:text="@string/tv_unplanned_inspections_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_inspection_event_category_planned_insp_title" />
+
+    <TextView
+        android:id="@+id/tv_building_element_classification_title"
+        android:text="@string/tv_building_element_classification_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_inspection_event_category_unplanned_insp_title" />
+
+    <TextView
+        android:id="@+id/tv_building_element_classification_planned_insp_title"
+        android:text="@string/tv_planned_inspections_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_building_element_classification_title" />
+
+    <TextView
+        android:id="@+id/tv_building_element_classification_unplanned_ins_title"
+        android:text="@string/tv_unplanned_inspections_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_building_element_classification_planned_insp_title" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sp_unplanned_insp_reg"
+        android:layout_below="@+id/tv_building_element_classification_planned_insp_title"
+        android:layout_toRightOf="@+id/tv_building_element_classification_unplanned_ins_title" />
+
+    <TextView
+        android:id="@+id/tv_resonse_action_originator_title"
+        android:text="@string/tv_building_element_classification_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sp_unplanned_insp_reg" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sp_action_owner_reg"
+        android:layout_below="@+id/tv_resonse_action_originator_title" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/placeholder_img"
+        android:layout_below="@+id/sp_action_owner_reg" />
+
 </RelativeLayout>
+

@@ -5,14 +5,29 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
 
 
 public class InspectionEventsActivity extends Activity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inspection_events);
+
+        Spinner spnrRegulations = (Spinner) findViewById(R.id.sp_unplanned_insp_reg);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.regulations, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnrRegulations.setAdapter(adapter);
+
+        Spinner spnrActionOwners = (Spinner) findViewById(R.id.sp_action_owner_reg);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.action_owners, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnrActionOwners.setAdapter(adapter2);
     }
 
     @Override
