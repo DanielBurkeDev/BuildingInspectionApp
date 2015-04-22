@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
 
     <ImageView
         android:id="@+id/imageView1"
@@ -40,8 +45,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:text="New Actions"
-            android:id="@+id/new_actions"
-            android:onClick="openNewActions"/>
+            android:id="@+id/new_actions" />
 
         <Button
             android:layout_width="90dp"
@@ -63,8 +67,7 @@
         android:layout_height="50dp"
         android:textSize="18dp"
         android:layout_gravity="center_horizontal"
-        android:text="Planned Inspection Events"/>
-
+        android:text="Planned Inspection Events" />
 
 
     <CalendarView
@@ -74,10 +77,17 @@
         android:id="@+id/calendarView" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Initiate Unplanned Inspection Event"
         android:id="@+id/button4"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Inspection Events"
+        android:id="@+id/btn_inspection_events_page"
         android:layout_gravity="center_horizontal" />
 
 

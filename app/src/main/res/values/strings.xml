@@ -30,4 +30,12 @@
     <string name="tv_lbl_name">Name:</string>
     <string name="registeredprojects">Registered Projects</string>
     <string name="title_activity_inspection_events">InspectionEventsActivity</string>
+    <string name="tv_assigned_certifier">Assigned Certifier</string>
+    <string name="tv_assigned_certifier_company_title">Assigned Certifier Company</string>
+    <string name="tv_planned_inspections_title">Planned Inspections</string>
+    <string name="tv_unplanned_inspections_title">Un-Planned Inspections</string>
+    <string name="tv_ancilliary_certifier_title">Ancilliary Certifier</string>
+    <string name="tv_project_number_title">Project Number</string>
+    <string name="tv_project_name_title">Project Name</string>
+    <string name="tv_inspection_plan_ref_number_title">Inspection Plan Reference Number</string>
 </resources>

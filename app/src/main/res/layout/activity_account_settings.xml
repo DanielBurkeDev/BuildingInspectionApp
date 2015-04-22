@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@+id/tv_account_settings_title"
-        android:layout_marginTop="@dimen/marginTop_16dp">
+        android:layout_marginTop="@dimen/margin_16dp">
 
         <TextView
             android:id="@+id/lbl_name"

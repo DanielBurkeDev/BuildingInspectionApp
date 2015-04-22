@@ -8,22 +8,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 
 public class ProjectHomeActivity extends Activity {
-
-
-
-
+    private Button btnInspectionEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_home);
 
+        btnInspectionEvents = (Button) findViewById(R.id.btn_inspection_events_page);
+        btnInspectionEvents.setOnClickListener(new ButtonListener());
 
     }
-
 
 
     @Override
@@ -46,5 +46,26 @@ public class ProjectHomeActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class ButtonListener implements View.OnClickListener {
+
+        public void onClick(View v) {
+            Intent intent;
+            switch (v.getId()) {
+                case R.id.btn_inspection_events_page:
+                    Toast.makeText(getApplicationContext(), "Inspection Events Button Selected",
+                            Toast.LENGTH_SHORT).show();
+
+                    intent = new Intent(ProjectHomeActivity.this,InspectionEventsActivity.class);
+                    startActivity(intent);
+                    break;
+
+                default:
+                    Toast.makeText(getApplicationContext(), "No options selected",
+                            Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 }

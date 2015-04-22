@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/et_name_hint"
             android:layout_below="@+id/tv_create_new_acc_title"
-            android:layout_marginTop="@dimen/marginTop_16dp" />
+            android:layout_marginTop="@dimen/margin_16dp" />
 
         <EditText
             android:id="@+id/et_title"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_name"
             android:hint="@string/et_title_hint"
-            android:layout_marginTop="@dimen/marginTop_16dp" />
+            android:layout_marginTop="@dimen/margin_16dp" />
 
         <EditText
             android:id="@+id/et_organisation_name"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_title"
             android:hint="@string/et_organisation_name_hint"
-            android:layout_marginTop="@dimen/marginTop_16dp" />
+            android:layout_marginTop="@dimen/margin_16dp" />
 
         <EditText
             android:id="@+id/et_organisation_type"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_organisation_name"
             android:hint="@string/et_organisation_type_hint"
-            android:layout_marginTop="@dimen/marginTop_16dp" />
+            android:layout_marginTop="@dimen/margin_16dp" />
 
 
         <EditText
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_organisation_type"
             android:hint="@string/et_address_hint"
-            android:layout_marginTop="@dimen/marginTop_16dp" />
+            android:layout_marginTop="@dimen/margin_16dp" />
 
         <LinearLayout
             android:id="@+id/lo_phonenums"
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/et_mobile_hint"
-                android:layout_marginTop="@dimen/marginTop_16dp"
+                android:layout_marginTop="@dimen/margin_16dp"
                 android:layout_weight="1" />
 
             <EditText
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/et_landline_hint"
-                android:layout_marginTop="@dimen/marginTop_16dp"
+                android:layout_marginTop="@dimen/margin_16dp"
                 android:layout_weight="1" />
         </LinearLayout>
 
@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/et_email_hint"
-            android:layout_marginTop="@dimen/marginTop_16dp"
+            android:layout_marginTop="@dimen/margin_16dp"
             android:layout_below="@+id/lo_phonenums"
             android:inputType="textEmailAddress" />
 
@@ -101,7 +101,7 @@
             android:layout_height="1dp"
             android:layout_below="@+id/et_email"
             android:background="@android:color/darker_gray"
-            android:layout_marginTop="@dimen/marginTop_16dp" />
+            android:layout_marginTop="@dimen/margin_16dp" />
 
         <TextView
             android:id="@+id/tv_payment_details_title"
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/divider"
             android:textSize="@dimen/largeFont"
-            android:layout_marginTop="@dimen/marginTop_16dp" />
+            android:layout_marginTop="@dimen/margin_16dp" />
 
         <Spinner
             android:id="@+id/sp_card_type"
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/sp_card_type"
             android:hint="@string/et_card_num_hint"
-            android:layout_marginTop="@dimen/marginTop_16dp"
+            android:layout_marginTop="@dimen/margin_16dp"
             android:inputType="number" />
 
         <LinearLayout
@@ -139,7 +139,7 @@
                 android:id="@+id/tv_expirydate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginTop_16dp"
+                android:layout_marginTop="@dimen/margin_16dp"
                 android:layout_below="@+id/et_card_num"
                 style="@android:style/Widget.DeviceDefault.Light.Spinner"
                 android:text="Expiry Date"
@@ -151,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/et_cvv_hint"
-                android:layout_marginTop="@dimen/marginTop_16dp"
+                android:layout_marginTop="@dimen/margin_16dp"
                 android:inputType="number" />
         </LinearLayout>
         <Button
@@ -160,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/layoutDateCVV"
             android:text="@string/btn_signup_text"
-            android:layout_marginTop="@dimen/marginTop_16dp"
+            android:layout_marginTop="@dimen/margin_16dp"
             />
 
     </RelativeLayout>
