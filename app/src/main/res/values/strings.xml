@@ -29,4 +29,5 @@
     <string name="title_account_settings">Account Settings</string>
     <string name="tv_lbl_name">Name:</string>
     <string name="registeredprojects">Registered Projects</string>
+    <string name="title_activity_inspection_events">InspectionEventsActivity</string>
 </resources>
