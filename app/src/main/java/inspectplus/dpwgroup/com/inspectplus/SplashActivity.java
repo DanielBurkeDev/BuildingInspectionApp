@@ -42,6 +42,7 @@ public class SplashActivity extends Activity {
     private static final String TAG_PWD = "pwd";
 
     private  boolean userFound = false;
+    //test
 
 
     @Override
