@@ -31,7 +31,7 @@ public class SplashActivity extends Activity {
     private JSONParser jParser = new JSONParser();
     //  private ArrayList<HashMap<String, String>> usersList;
     // url to get all products list
-    private static String url_all_users = "http://skatdev.com/tst/get_all_users.php";
+    private static String url_all_users = "http://f12.solutions/scrpt/get_all_users.php";
     // products JSONArray
     private JSONArray users = null;
     // JSON Node names
