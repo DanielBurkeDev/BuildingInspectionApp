@@ -134,8 +134,9 @@ public class SplashActivity extends Activity {
             Log.d("JSON Response", result.names().toString());
             UsernameKVPairs uvp = new UsernameKVPairs(result);
 
-            System.out.println("map : "+ uvp.userMap(result));
-            System.out.println("map : "+ uvp.userMap(result));
+            System.out.println("map : " + uvp.userMap(result));
+
+
         }
 
     }

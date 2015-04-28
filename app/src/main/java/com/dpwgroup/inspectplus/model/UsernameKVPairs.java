@@ -16,19 +16,25 @@ import java.util.Iterator;
  */
 public class UsernameKVPairs {
     private JSONObject json;
+    private static final String TAG_USERS = "users";
+    private static final String TAG_USERID = "userId";
+    private static final String TAG_FIRSTNAME = "firstName";
+    private static final String TAG_EMAIL = "email";
+    private static final String TAG_PWD = "pwd";
+
 
     public UsernameKVPairs(JSONObject json) {
         this.json = json;
         userMap(json);
     }
 
-    public HashMap<String, String> userMap(JSONObject json){
+    public HashMap<String, String> userMap(JSONObject json) {
         HashMap<String, String> map = new HashMap<String, String>();
         Iterator<?> keys = json.keys();
-        String returnedString;
 
-        while( keys.hasNext() ){
-            String key = (String)keys.next();
+
+        while (keys.hasNext()) {
+            String key = (String) keys.next();
             String value = null;
             try {
                 value = json.getString(key);
@@ -42,18 +48,19 @@ public class UsernameKVPairs {
         return map;
     }
 
-    private String returnStringFromJSON(JSONObject json) {
+   public String returnStringFromJSON(JSONObject json) {
         HashMap<String, String> mapResult = new HashMap<String, String>();
         //
         String resultEmail;
         String resultPwd;
         String mapResultString;
 
-        for (int i = 0; i < json.length(); i ++){
+        for (int i = 0; i < json.length(); i++) {
             try {
-                resultEmail = json.getJSONObject("users").getString("email");
-               resultPwd = json.getJSONObject("users").getString("pwd");
-               mapResult.put(resultEmail, resultPwd);
+                resultEmail = json.getString(TAG_EMAIL);
+                resultPwd = json.getString(TAG_PWD);
+                mapResult.put(TAG_EMAIL, resultEmail);
+                mapResult.put(TAG_PWD, resultPwd);
 
                 Log.d("kvpmapResult", "" + mapResult.toString());
 
@@ -61,7 +68,7 @@ public class UsernameKVPairs {
                 e.printStackTrace();
             }
         }
-      mapResultString = mapResult.toString();
+        mapResultString = mapResult.toString();
 
         return mapResultString;
     }
