@@ -1,4 +1,4 @@
-package inspectplus.dpwgroup.com.inspectplus;
+package inspectplus.dpwgroup.com.inspectplus.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -20,6 +20,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import inspectplus.dpwgroup.com.inspectplus.JSONParser;
+import inspectplus.dpwgroup.com.inspectplus.R;
 
 
 public class SplashActivity extends Activity {
