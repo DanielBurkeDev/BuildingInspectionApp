@@ -1,14 +1,12 @@
-package inspectplus.dpwgroup.com.inspectplus;
+package inspectplus.dpwgroup.com.inspectplus.activities;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import inspectplus.dpwgroup.com.inspectplus.R;
 
 
 public class RegisteredProjectsActivity extends Activity {

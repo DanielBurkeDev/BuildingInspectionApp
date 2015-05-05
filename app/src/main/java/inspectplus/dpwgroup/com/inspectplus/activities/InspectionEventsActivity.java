@@ -1,4 +1,4 @@
-package inspectplus.dpwgroup.com.inspectplus;
+package inspectplus.dpwgroup.com.inspectplus.activities;
 
 import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import inspectplus.dpwgroup.com.inspectplus.R;
 
 
 public class InspectionEventsActivity extends Activity {

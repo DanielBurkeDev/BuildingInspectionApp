@@ -1,4 +1,4 @@
-package inspectplus.dpwgroup.com.inspectplus;
+package inspectplus.dpwgroup.com.inspectplus.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -21,6 +21,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import inspectplus.dpwgroup.com.inspectplus.JSONParser;
+import inspectplus.dpwgroup.com.inspectplus.R;
+
 
 public class SplashActivity extends Activity {
     private EditText etUsername, etPassword;
@@ -40,8 +43,6 @@ public class SplashActivity extends Activity {
     private static final String TAG_EMAIL = "email";
     private static final String TAG_FIRSTNAME = "firstName";
     private static final String TAG_PWD = "pwd";
-
-    private  boolean userFound = false;
 
 
     @Override
@@ -80,15 +81,14 @@ public class SplashActivity extends Activity {
          * getting All products from url
          */
         protected JSONObject doInBackground(String... args) {
-            String etemail = etUsername.getText().toString();
-            String etpw = etPassword.getText().toString();
+
 
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_all_users, "GET", params);
 
-            // Check your log cat for JSON reponse
+            // Check your log cat for JSON response
             Log.d("All Users: ", json.toString());
 
             try {
@@ -96,21 +96,14 @@ public class SplashActivity extends Activity {
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // products found
-                    // Getting Array of Products
+                    //Users found
+                    // Getting Array of Users
                     users = json.getJSONArray(TAG_USERS);
                     Log.d("Json Test", users.toString());
 
                     // looping through All Users
                     for (int i = 0; i < users.length(); i++) {
-
-                        if (users.toString().contains(etemail) && users.toString().contains(etpw)) {
-                            userFound = true;
-                            openActivity();
-                        } else {
-                            userFound = false;
-                             //noUserfound(userFound);
-                        }
+                      //  userValidate();
 
                     }
                 } else {
@@ -135,8 +128,7 @@ public class SplashActivity extends Activity {
             UsernameKVPairs uvp = new UsernameKVPairs(result);
 
             System.out.println("map : " + uvp.userMap(result));
-
-
+            userValidate();
         }
 
     }
@@ -146,7 +138,24 @@ public class SplashActivity extends Activity {
         startActivity(intent);
     }
 
+    private  void userValidate(){
+        String etemail = etUsername.getText().toString();
+        String etpw = etPassword.getText().toString();
 
+        if (users.toString().contains(etemail) && users.toString().contains(etpw)) {
+            // User found
+            Log.d("user found", "User was found");
+            openActivity();
+        } else {
+
+            //no User found
+            Log.d("No user found", "No one here by that name");
+            Toast.makeText(getApplicationContext(), "No User Found Please Try Again",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // Button Listener
     private class ButtonListener implements View.OnClickListener {
 
         public void onClick(View v) {
