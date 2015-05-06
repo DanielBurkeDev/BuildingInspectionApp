@@ -43,7 +43,7 @@ public class UsernameKVPairs {
         }
         return map;
     }
-
+//
 //    public String returnStringFromJSON(JSONObject json) {
 //        HashMap<String, String> mapEmail = new HashMap<String, String>();
 //        HashMap<String, String> mapPwd = new HashMap<String, String>();
