@@ -44,6 +44,7 @@ public class ListViewActivity extends Activity {
 				Toast.makeText(ListViewActivity.this, projects.get(i).toString(), Toast.LENGTH_LONG).show();
 				Intent intent = new Intent(ListViewActivity.this, TodoListActivity.class);
 				intent.putExtra("location", projects.get(i).getName() + ", " + projects.get(i).getLocation());
+				Log.d("location",projects.get(i).getName() );
 				intent.putExtra("id", projects.get(i).getId());
 				startActivity(intent);
 			}

@@ -134,7 +134,7 @@ public class SplashActivity extends Activity {
     }
 
     private void openActivity() {
-        Intent intent = new Intent(SplashActivity.this, RegisteredProjectsActivity.class);
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
