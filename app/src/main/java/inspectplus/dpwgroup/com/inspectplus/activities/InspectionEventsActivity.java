@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import inspectplus.dpwgroup.com.inspectplus.R;
+
 
 
 public class InspectionEventsActivity extends Activity {

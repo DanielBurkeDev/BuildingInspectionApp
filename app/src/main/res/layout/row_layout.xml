@@ -17,7 +17,7 @@
 
 		<ImageView android:layout_width="32dp"
 				   android:layout_height="32dp"
-				   android:src="@mipmap/todo"
+				   android:src="@drawable/todo"
 				   android:id="@+id/todo_image"
 				   android:layout_weight="1.0" />
 
