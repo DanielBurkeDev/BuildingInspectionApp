@@ -1,7 +1,7 @@
 package inspectplus.dpwgroup.com.inspectplus.models;
 
 /**
- * Created by skatgroovey on 05/05/2015.
+ * Created by skatgroovey on 05/05/2015. test
  */
 public class BuildingElements {
     private String buildingElementId;

@@ -10,11 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.devstream.androiddpw.app.R;
-import com.devstream.androiddpw.app.models.Project;
-import com.devstream.androiddpw.app.utils.EventsSingleton;
 
 import java.util.ArrayList;
+
+import inspectplus.dpwgroup.com.inspectplus.R;
+import inspectplus.dpwgroup.com.inspectplus.models.Project;
+import inspectplus.dpwgroup.com.inspectplus.utils.EventsSingleton;
 
 
 public class ListViewActivity extends Activity {
