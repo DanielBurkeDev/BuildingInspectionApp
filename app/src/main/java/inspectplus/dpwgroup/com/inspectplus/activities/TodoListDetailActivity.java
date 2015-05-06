@@ -11,7 +11,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.devstream.androiddpw.app.R;
+import inspectplus.dpwgroup.com.inspectplus.R;
+
 
 /**
  * Created by Barry Dempsey on 01/05/15.

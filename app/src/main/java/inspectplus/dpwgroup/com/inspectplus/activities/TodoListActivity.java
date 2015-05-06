@@ -7,11 +7,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.devstream.androiddpw.app.models.InspectionEvent;
-import com.devstream.androiddpw.app.models.UnplannedInspection;
-import com.devstream.androiddpw.app.utils.MyAdapter;
 
 import java.util.ArrayList;
+
+import inspectplus.dpwgroup.com.inspectplus.models.InspectionEvent;
+import inspectplus.dpwgroup.com.inspectplus.models.UnplannedInspection;
+import inspectplus.dpwgroup.com.inspectplus.utils.MyAdapter;
 
 /**
  * Created by Barry Dempsey on 01/05/15.
