@@ -24,6 +24,13 @@ public class UsersModel {
     private String latitude;
     private String longitude;
 
+    public UsersModel(String userId, String firstName, String password, String email){
+        this.firstName = firstName;
+        this.password = password;
+        this.email = email;
+        this.userId = userId;
+    }
+
     public String getUserId() {
         return userId;
     }

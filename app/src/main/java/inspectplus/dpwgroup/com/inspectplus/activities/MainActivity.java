@@ -17,13 +17,14 @@ import inspectplus.dpwgroup.com.inspectplus.utils.JSONParser;
 public class MainActivity extends Activity {
     private ListView listView;
     private ArrayList<InspectionEvent> events;
+    private String projectsFlag = "projectsFlag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         JSONParser parser = new JSONParser(MainActivity.this,
-                "http://f12.solutions/scrpt/dpw/get_all_projects.php"); // WHERE userid = ?
+                "http://f12.solutions/scrpt/dpw/get_all_projects.php", projectsFlag); // WHERE userid = ?
         finish();
     }
 

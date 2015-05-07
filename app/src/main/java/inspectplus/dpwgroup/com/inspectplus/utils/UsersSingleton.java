@@ -1,5 +1,7 @@
 package inspectplus.dpwgroup.com.inspectplus.utils;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import inspectplus.dpwgroup.com.inspectplus.models.UsersModel;
@@ -10,6 +12,7 @@ import inspectplus.dpwgroup.com.inspectplus.models.UsersModel;
 public class UsersSingleton {
     private static UsersSingleton usersSingleton;
     private ArrayList<UsersModel> users = new ArrayList<UsersModel>();
+    private boolean doneWithflag = false;
 
     public static UsersSingleton getUsersSingleton(){
 
@@ -19,10 +22,19 @@ public class UsersSingleton {
         return usersSingleton;
     }
 
-    public   ArrayList<UsersModel> getUsers(){ return users;}
+    public  ArrayList<UsersModel> getUsers(){
+
+        return users;}
 
     public void setUsers(ArrayList<UsersModel> users) {
         this.users = users;
+        flag();
+
+    }
+
+    public boolean flag() {
+        doneWithflag = true;
+        return  doneWithflag;
     }
 
     public  static void setUsersSingleton(UsersSingleton usersSingleton){
