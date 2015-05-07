@@ -122,13 +122,13 @@ public class SplashActivity extends Activity {
                     users = result.getJSONArray(TAG_USERS);
                     Log.d("Json Test", users.toString());
                     Log.d("JSON Response", result.names().toString());
+                    UsernameKVPairs uvp = new UsernameKVPairs(result);
+                    System.out.println("map : " + uvp.userMap(result));
+                    userValidate();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                UsernameKVPairs uvp = new UsernameKVPairs(result);
-                System.out.println("map : " + uvp.userMap(result));
-                userValidate();
             }else {
                 Toast.makeText(SplashActivity.this,
                         "No connection - please check Internet",

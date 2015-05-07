@@ -18,7 +18,10 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by johndoe on 30/04/15.
@@ -111,19 +114,17 @@ public class JSONParser extends JSONObject {
                 String projectName = obj.getString("projectName");
                 double estimateValue = obj.getDouble("estimatedValue");
                 String projectAdmin = obj.getString("projectdmin");
-                //Date creationDate = new Date();
-                //Date changeDated = new Date();
+                String creationDate = obj.getString("creationDate");
+                String changeDate = obj.getString("changeDate");
 
-                /**
-                project = new Project(id, name, projectName,
-                        location, estimateValue, projectAdmin,
-                        creationDate, changeDated );**/
                 project = new Project();
                 project.setId(id);
                 project.setName(name);
                 project.setProjectName(projectName);
                 project.setProjectAdmin(projectAdmin);
                 project.setEstimatedValue(estimateValue);
+                project.setCreationDate(parseTheStringDate(creationDate));
+                project.setChangeDate(parseTheStringDate(changeDate));
                 Log.d("Results", project.toString());
                 addToList(project);
 
@@ -141,5 +142,16 @@ public class JSONParser extends JSONObject {
             Intent i = new Intent(context, ListViewActivity.class);
             context.startActivity(i);
         }
+    }
+
+    private Date parseTheStringDate(String date) {
+        Date pDate = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+        try {
+            pDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return pDate;
     }
 }
