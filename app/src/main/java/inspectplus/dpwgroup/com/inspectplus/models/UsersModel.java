@@ -7,39 +7,37 @@ import java.util.Date;
  */
 public class UsersModel {
 
-    private int userId;
+    private String userId;
     private String password;
     private String firstName;
     private String surName;
-    private int organisationId;
+    private String organisationId;
     private String email;
     private String mobile;
     private String landline;
-    private int roleId;
-    private Date lastLogin;
-    private int failedLoginCount;
-    private boolean locked;
-    private boolean loggedIn;
-    private boolean hasGPSData;
+    private String roleId;
+    private String lastLogin;
+    private String failedLoginCount;
+    private String locked;
+    private String loggedIn;
+    private String hasGPSData;
     private String latitude;
     private String longitude;
 
-    public UsersModel() {
-        super();
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
+    public UsersModel(String userId, String firstName, String password, String email){
+        this.firstName = firstName;
+        this.password = password;
+        this.email = email;
         this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getPassword() {
         return password;
     }
-
 
     public String getFirstName() {
         return firstName;
@@ -49,7 +47,7 @@ public class UsersModel {
         return surName;
     }
 
-    public int getOrganisationId() {
+    public String getOrganisationId() {
         return organisationId;
     }
 
@@ -65,66 +63,35 @@ public class UsersModel {
         return landline;
     }
 
-
-    public int getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public Date getLastLogin() {
+    public String getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
-    public int getFailedLoginCount() {
+    public String getFailedLoginCount() {
         return failedLoginCount;
     }
 
-    public void setFailedLoginCount(int failedLoginCount) {
-        this.failedLoginCount = failedLoginCount;
-    }
-
-    public boolean isLocked() {
+    public String getLocked() {
         return locked;
     }
 
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
-
-    public boolean isLoggedIn() {
+    public String getLoggedIn() {
         return loggedIn;
     }
 
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
-
-    public boolean isHasGPSData() {
+    public String getHasGPSData() {
         return hasGPSData;
-    }
-
-    public void setHasGPSData(boolean hasGPSData) {
-        this.hasGPSData = hasGPSData;
     }
 
     public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
     public String getLongitude() {
         return longitude;
     }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-
 }
