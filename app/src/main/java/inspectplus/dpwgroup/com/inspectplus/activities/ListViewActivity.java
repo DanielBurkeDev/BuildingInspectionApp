@@ -9,19 +9,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-
-import java.util.ArrayList;
-
 import inspectplus.dpwgroup.com.inspectplus.R;
 import inspectplus.dpwgroup.com.inspectplus.models.Project;
 import inspectplus.dpwgroup.com.inspectplus.utils.EventsSingleton;
+
+import java.util.ArrayList;
 
 
 public class ListViewActivity extends Activity {
 	private ListView listView;
 	private ArrayList<Project> projects;
 	private ArrayList<String> projectString = new ArrayList<String>();
+	private static boolean isShowing = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,9 @@ public class ListViewActivity extends Activity {
 		Log.d("List", "Should be called!");
 		// get a String representation of the Projects
 		for(Project project : projects) {
-			projectString.add("\n" + project.getId() + " - " + project.getName() + ", " + project.getLocation());
+			String theId = project.getId();
+			if(theId.length() < 4) theId += "  ";
+			projectString.add("\n" + theId + "  |  " + project.getName() + ", " + project.getLocation());
 		}
 
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.my_textview, projectString);

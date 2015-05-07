@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-
-
-import java.util.ArrayList;
-
 import inspectplus.dpwgroup.com.inspectplus.R;
 import inspectplus.dpwgroup.com.inspectplus.models.InspectionEvent;
 import inspectplus.dpwgroup.com.inspectplus.utils.JSONParser;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends Activity {
@@ -21,9 +19,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        JSONParser parser = new JSONParser(MainActivity.this,
-                "http://f12.solutions/scrpt/test/get_all_projects.php"); // WHERE userid = ?
+        //setContentView(R.layout.list_layout);
+        JSONParser parser = new JSONParser(this, "http://f12.solutions/scrpt/test/get_all_projects.php");
         finish();
     }
 

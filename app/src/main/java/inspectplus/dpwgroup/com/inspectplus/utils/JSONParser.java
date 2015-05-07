@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-
+import inspectplus.dpwgroup.com.inspectplus.activities.ListViewActivity;
+import inspectplus.dpwgroup.com.inspectplus.models.Project;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -19,9 +20,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import inspectplus.dpwgroup.com.inspectplus.activities.ListViewActivity;
-import inspectplus.dpwgroup.com.inspectplus.models.Project;
-
 /**
  * Created by johndoe on 30/04/15.
  */
@@ -31,6 +29,8 @@ public class JSONParser extends JSONObject {
     private String url;
     private InputStream is;
     private ArrayList<Project> projects = new ArrayList<Project>();
+    private int count = 0;
+    private JSONArray jArray;
 
     public JSONParser(Context context, String url) {
         this.context = context;
@@ -85,7 +85,7 @@ public class JSONParser extends JSONObject {
             Log.d("Connected", s);
             try {
                 JSONObject obj = new JSONObject(s);
-                JSONArray jArray = obj.getJSONArray("projects");
+                jArray = obj.getJSONArray("projects");
                 populateTheEventObject(jArray);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -121,9 +121,12 @@ public class JSONParser extends JSONObject {
     }
 
     private void addToList(Project project) {
+        count++;
         projects.add(project);
         EventsSingleton.getEventsSingleton().setProjects(projects);
-        Intent i = new Intent(context, ListViewActivity.class);
-        context.startActivity(i);
+        if(count == jArray.length()) {
+            Intent i = new Intent(context, ListViewActivity.class);
+            context.startActivity(i);
+        }
     }
 }

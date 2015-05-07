@@ -40,6 +40,7 @@ public class SplashActivity extends Activity {
     private static final String TAG_EMAIL = "email";
     private static final String TAG_FIRSTNAME = "firstName";
     private static final String TAG_PWD = "pwd";
+    int count = 0;
 
 
     @Override
@@ -79,7 +80,6 @@ public class SplashActivity extends Activity {
          */
         protected JSONObject doInBackground(String... args) {
 
-
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             // getting JSON string from URL
@@ -93,16 +93,8 @@ public class SplashActivity extends Activity {
                     int success = json.getInt(TAG_SUCCESS);
 
                     if (success == 1) {
-                        //Users found
-                        // Getting Array of Users
-                        users = json.getJSONArray(TAG_USERS);
-                        Log.d("Json Test", users.toString());
+                        return json;
 
-                        // looping through All Users
-                        for (int i = 0; i < users.length(); i++) {
-                            //  userValidate();
-
-                        }
                     } else {
                         // no users found
                         Log.d("No users found", "None found");
@@ -124,9 +116,17 @@ public class SplashActivity extends Activity {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
             if(result != null) {
-                Log.d("JSON Response", result.names().toString());
-                UsernameKVPairs uvp = new UsernameKVPairs(result);
+                //Users found
+                // Getting Array of Users
+                try {
+                    users = result.getJSONArray(TAG_USERS);
+                    Log.d("Json Test", users.toString());
+                    Log.d("JSON Response", result.names().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
+                UsernameKVPairs uvp = new UsernameKVPairs(result);
                 System.out.println("map : " + uvp.userMap(result));
                 userValidate();
             }else {
