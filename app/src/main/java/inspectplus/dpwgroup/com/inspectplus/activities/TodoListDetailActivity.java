@@ -34,7 +34,7 @@ public class TodoListDetailActivity extends Activity {
         actionBar.setTitle(todoItem);
         actionBar.setIcon(R.drawable.todo);
         actionBar.setHomeButtonEnabled(true);
-        checkLabel.setText(todo);
+        checkLabel.setText("Item " + todo);
         camerBtn.setOnClickListener(new View.OnClickListener(){
 
             @Override

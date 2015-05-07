@@ -3,16 +3,15 @@ package inspectplus.dpwgroup.com.inspectplus.activities;
 import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
-
-
-import java.util.ArrayList;
-
 import inspectplus.dpwgroup.com.inspectplus.models.InspectionEvent;
 import inspectplus.dpwgroup.com.inspectplus.models.UnplannedInspection;
 import inspectplus.dpwgroup.com.inspectplus.utils.MyAdapter;
+
+import java.util.ArrayList;
 
 /**
  * Created by Barry Dempsey on 01/05/15.
@@ -64,7 +63,7 @@ public class TodoListActivity extends ListActivity {
     private void addToEventsList(InspectionEvent... es) {
         for(InspectionEvent event : es) {
             events.add(event);
-            todoList.add(event.getId() + " - " + event.getName() + " on " + event.getLocation());
+            todoList.add(event.getId() + "  |  " + event.getName() + "  :  " + event.getLocation());
         }
     }
 
@@ -77,5 +76,13 @@ public class TodoListActivity extends ListActivity {
                 finish();
         }
         return (super.onOptionsItemSelected(menuItem));
+    }
+
+    private class BackgroundListTask extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            return null;
+        }
     }
 }

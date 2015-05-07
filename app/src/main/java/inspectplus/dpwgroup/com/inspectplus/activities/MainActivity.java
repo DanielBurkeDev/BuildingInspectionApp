@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.list_layout);
-        JSONParser parser = new JSONParser(this, "http://f12.solutions/scrpt/test/get_all_projects.php");
+        JSONParser parser = new JSONParser(this, "http://f12.solutions/scrpt/dpw/get_all_projects.php");
         finish();
     }
 

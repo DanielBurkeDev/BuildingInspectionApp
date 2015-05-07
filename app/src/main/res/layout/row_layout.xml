@@ -36,7 +36,7 @@
 				  android:layout_height="wrap_content"
 				  android:ellipsize="end"
 				  android:maxLines="1"
-				  android:text="Subtitle text"
+				  android:text="Details -->"
 				  android:textAppearance="@android:style/TextAppearance.Small"
 				  android:layout_weight="1.5" />
 

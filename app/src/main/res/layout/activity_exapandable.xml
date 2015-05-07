@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<some.awesome.package.ExpandablePanel
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:panel="http://schemas.android.com/apk/res/com.digitalfootsteps.android"
+        android:id="@+id/expandable_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/papar_texture"
+        panel:content="@+id/value"
+        panel:contentContainer="@+id/content_container"
+        panel:handle="@+id/expand" >
+
+    <FrameLayout
+            android:id="@id/content_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@id/expand"
+            android:paddingBottom="5dp"
+            android:paddingRight="15dp" >
+
+        <some.awesome.package.SomeAwesomeContentView
+                android:id="@id/value"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <Button
+            android:id="@id/expand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true" />
+</some.awesome.package.ExpandablePanel>

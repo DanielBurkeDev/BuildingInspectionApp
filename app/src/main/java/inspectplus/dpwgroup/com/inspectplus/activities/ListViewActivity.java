@@ -33,7 +33,7 @@ public class ListViewActivity extends Activity {
 		for(Project project : projects) {
 			String theId = project.getId();
 			if(theId.length() < 4) theId += "  ";
-			projectString.add("\n" + theId + "  |  " + project.getName() + ", " + project.getLocation());
+			projectString.add("\n" + theId + " | " + project.getName() + ", " + project.getLocation());
 		}
 
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.my_textview, projectString);
