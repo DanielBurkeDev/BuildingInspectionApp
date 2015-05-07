@@ -4,16 +4,17 @@ package inspectplus.dpwgroup.com.inspectplus.models;
  * Created by johndoe on 01/05/15.
  */
 public class Project {
-    private String id;
+    private String projectId;
     private String name;
     private String location;
+    private String projectNumber;
 
     public Project() {
 
     }
 
     public Project(String id, String name, String location) {
-        this.id = id;
+        this.projectId = id;
         this.name = name;
         this.location = location;
     }
@@ -28,11 +29,11 @@ public class Project {
     }
 
     public String getId() {
-        return id;
+        return projectId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String projectId) {
+        this.projectId = projectId;
     }
 
     public String getName() {
@@ -43,7 +44,15 @@ public class Project {
         this.name = name;
     }
 
+    public String getProjectNumber() {
+        return projectNumber;
+    }
+
+    public void setProjectNumber(String projectNumber) {
+        this.projectNumber = projectNumber;
+    }
+
     public String toString() {
-        return "ID: " + id + "\nName: " + name + "\nLocation: " + location;
+        return "ID: " + projectId + "\nName: " + name + "\nLocation: " + location;
     }
 }

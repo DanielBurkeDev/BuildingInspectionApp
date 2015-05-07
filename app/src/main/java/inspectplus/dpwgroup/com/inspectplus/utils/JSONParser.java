@@ -105,9 +105,9 @@ public class JSONParser extends JSONObject {
         for(int i = 0; i < jArray.length(); i++) {
             try {
                 obj = jArray.getJSONObject(i);
-                String id = obj.getString("id");
-                String name = obj.getString("name");
-                String location = obj.getString("location");
+                String id = obj.getString("projectId");
+                String name = obj.getString("projectName");
+                String location = obj.getString("projectLocation");
                 String date = null; //
                 Log.d("Results", id + ", " + name + ", " + location);
                 //

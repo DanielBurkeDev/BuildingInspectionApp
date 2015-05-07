@@ -23,7 +23,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         JSONParser parser = new JSONParser(MainActivity.this,
-                "http://f12.solutions/scrpt/test/get_all_projects.php"); // WHERE userid = ?
+                "http://f12.solutions/scrpt/dpw/get_all_projects.php"); // WHERE userid = ?
         finish();
     }
 

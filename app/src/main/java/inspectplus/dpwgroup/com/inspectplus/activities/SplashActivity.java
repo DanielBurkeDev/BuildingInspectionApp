@@ -34,7 +34,7 @@ public class SplashActivity extends Activity {
     private JSONParser jParser = new JSONParser();
     //  private ArrayList<HashMap<String, String>> usersList;
     // url to get all products list
-    private static String url_all_users = "http://f12.solutions/scrpt/get_all_users.php";
+    private static String url_all_users = "http://f12.solutions/scrpt/dpw/get_all_users.php";
     // products JSONArray
     private JSONArray users = null;
     // JSON Node names
@@ -59,7 +59,7 @@ public class SplashActivity extends Activity {
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(new ButtonListener());
         etUsername.setText("jsmith@dpw-group.com");
-        etPassword.setText("f24578209a524f8a47611a5f7f816ae108564df7");
+        etPassword.setText("f5489cd12b8b28f2825bff08c709ae6be7193707");
     }
 
     private class Login extends AsyncTask<String, String, JSONObject> {
