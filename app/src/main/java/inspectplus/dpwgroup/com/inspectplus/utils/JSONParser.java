@@ -108,10 +108,23 @@ public class JSONParser extends JSONObject {
                 String id = obj.getString("projectId");
                 String name = obj.getString("projectName");
                 String location = obj.getString("projectLocation");
-                String date = null; //
-                Log.d("Results", id + ", " + name + ", " + location);
-                //
-                project = new Project(id, name, location);
+                String projectName = obj.getString("projectName");
+                double estimateValue = obj.getDouble("estimatedValue");
+                String projectAdmin = obj.getString("projectdmin");
+                //Date creationDate = new Date();
+                //Date changeDated = new Date();
+
+                /**
+                project = new Project(id, name, projectName,
+                        location, estimateValue, projectAdmin,
+                        creationDate, changeDated );**/
+                project = new Project();
+                project.setId(id);
+                project.setName(name);
+                project.setProjectName(projectName);
+                project.setProjectAdmin(projectAdmin);
+                project.setEstimatedValue(estimateValue);
+                Log.d("Results", project.toString());
                 addToList(project);
 
             } catch (JSONException e) {

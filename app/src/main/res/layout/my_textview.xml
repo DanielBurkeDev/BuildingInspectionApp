@@ -4,6 +4,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="15dp"
+                android:maxWidth="40dp"
                 android:textSize="20dp"
                 android:scrollbars="vertical"  >
 </TextView>

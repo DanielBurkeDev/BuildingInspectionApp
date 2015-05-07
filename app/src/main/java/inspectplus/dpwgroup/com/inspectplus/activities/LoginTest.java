@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import inspectplus.dpwgroup.com.inspectplus.R;
 
 /**
@@ -40,7 +39,6 @@ public class LoginTest extends Activity{
                 case R.id.btn_login:
                     Toast.makeText(getApplicationContext(), "Login Button Selected",
                             Toast.LENGTH_SHORT).show();
-
 
                     break;
 

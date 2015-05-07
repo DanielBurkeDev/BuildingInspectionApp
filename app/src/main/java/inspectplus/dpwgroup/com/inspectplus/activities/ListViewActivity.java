@@ -42,6 +42,7 @@ public class ListViewActivity extends Activity {
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
 				Toast.makeText(ListViewActivity.this, projects.get(i).toString(), Toast.LENGTH_LONG).show();
 				Intent intent = new Intent(ListViewActivity.this, TodoListActivity.class);
 				intent.putExtra("location", projects.get(i).getName() + ", " + projects.get(i).getLocation());
