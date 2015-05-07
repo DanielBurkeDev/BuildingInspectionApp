@@ -10,9 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.dpwgroup.inspectplus.model.UsernameKVPairs;
-
+import inspectplus.dpwgroup.com.inspectplus.JSONParser;
+import inspectplus.dpwgroup.com.inspectplus.R;
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,9 +20,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import inspectplus.dpwgroup.com.inspectplus.JSONParser;
-import inspectplus.dpwgroup.com.inspectplus.R;
 
 
 public class SplashActivity extends Activity {
@@ -89,32 +86,34 @@ public class SplashActivity extends Activity {
             JSONObject json = jParser.makeHttpRequest(url_all_users, "GET", params);
 
             // Check your log cat for JSON response
-            Log.d("All Users: ", json.toString());
+            if(json != null) {
+                Log.d("All Users: ", json.toString());
+                try {
+                    // Checking for SUCCESS TAG
+                    int success = json.getInt(TAG_SUCCESS);
 
-            try {
-                // Checking for SUCCESS TAG
-                int success = json.getInt(TAG_SUCCESS);
+                    if (success == 1) {
+                        //Users found
+                        // Getting Array of Users
+                        users = json.getJSONArray(TAG_USERS);
+                        Log.d("Json Test", users.toString());
 
-                if (success == 1) {
-                    //Users found
-                    // Getting Array of Users
-                    users = json.getJSONArray(TAG_USERS);
-                    Log.d("Json Test", users.toString());
+                        // looping through All Users
+                        for (int i = 0; i < users.length(); i++) {
+                            //  userValidate();
 
-                    // looping through All Users
-                    for (int i = 0; i < users.length(); i++) {
-                      //  userValidate();
-
+                        }
+                    } else {
+                        // no users found
+                        Log.d("No users found", "None found");
                     }
-                } else {
-                    // no users found
-                    Log.d("No users found", "None found");
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
-            return json;
+                return json;
+            }
+            return null;
         }
 
         /**
@@ -124,13 +123,18 @@ public class SplashActivity extends Activity {
         protected void onPostExecute(JSONObject result) {
             // dismiss the dialog after getting all products
             pDialog.dismiss();
-            Log.d("JSON Response", result.names().toString());
-            UsernameKVPairs uvp = new UsernameKVPairs(result);
+            if(result != null) {
+                Log.d("JSON Response", result.names().toString());
+                UsernameKVPairs uvp = new UsernameKVPairs(result);
 
-            System.out.println("map : " + uvp.userMap(result));
-            userValidate();
+                System.out.println("map : " + uvp.userMap(result));
+                userValidate();
+            }else {
+                Toast.makeText(SplashActivity.this,
+                        "No connection - please check Internet",
+                        Toast.LENGTH_LONG).show();
+            }
         }
-
     }
 
     private void openActivity() {
