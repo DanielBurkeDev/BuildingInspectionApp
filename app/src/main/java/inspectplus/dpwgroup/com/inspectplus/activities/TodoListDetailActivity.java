@@ -21,12 +21,14 @@ public class TodoListDetailActivity extends Activity {
     private TextView checkLabel;
     private ImageButton camerBtn;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_todo_detail_layout);
         checkLabel = (TextView)findViewById(R.id.check_label);
-        camerBtn = (ImageButton)findViewById(R.id.camera_icon);
+        //camerBtn = (ImageButton)findViewById(R.id.camera_icon);
         Intent i = getIntent();
         String todoItem = i.getExtras().getString("todo");
         String todo = i.getExtras().getString("todo2");
@@ -35,27 +37,16 @@ public class TodoListDetailActivity extends Activity {
         actionBar.setIcon(R.drawable.todo);
         actionBar.setHomeButtonEnabled(true);
         checkLabel.setText(todo);
-        camerBtn.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(TodoListDetailActivity.this);
-                builder.setTitle("Activate Camera");
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // OK
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // Cancel
-                    }
-                });
-                builder.show();
-            }
-        });
+
+
+
+    }
+
+    public void sendMessage(View view)
+    {
+        Intent intent = new Intent(TodoListDetailActivity.this, ImageGalleryActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -80,4 +71,7 @@ public class TodoListDetailActivity extends Activity {
         }
         return (super.onOptionsItemSelected(menuItem));
     }
+
+
+
 }
