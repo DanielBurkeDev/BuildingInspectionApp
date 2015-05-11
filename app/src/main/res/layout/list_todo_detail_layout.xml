@@ -29,15 +29,142 @@
 
     </LinearLayout>
 
-    <Button
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Image Gallery"
+            android:onClick="sendMessage"
+            android:id="@+id/image_gallery_btn" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Location"
+            android:id="@+id/show_location"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_assigned_certifier_title"
+        android:text="@string/tv_assigned_certifier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_assigned_certifier_company_title"
+        android:text="@string/tv_assigned_certifier_company_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Image Gallery"
-        android:onClick="sendMessage"
-        android:id="@+id/image_gallery_btn" />
+        android:layout_below="@+id/tv_assigned_certifier_title" />
+    <TextView
+        android:id="@+id/tv_ancilliary_certifier_title"
+        android:text="@string/tv_ancilliary_certifier_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_assigned_certifier_company_title" />
+
+    <TextView
+        android:id="@+id/tv_assigned_certifier_planned_inspections_title"
+        android:text="@string/tv_planned_inspections_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_ancilliary_certifier_title" />
+
+    <TextView
+        android:id="@+id/tv_assigned_certifier_unplanned_inspections_title"
+        android:text="@string/tv_unplanned_inspections_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_assigned_certifier_planned_inspections_title" />
+
+    <TextView
+        android:id="@+id/tv_ancilliary_certifier_company_title"
+        android:text="Ancilliary Certifier Company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_assigned_certifier_unplanned_inspections_title" />
+
+    <TextView
+        android:id="@+id/tv_ancilliary_certifier_planned_inspections_title"
+        android:text="@string/tv_planned_inspections_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_ancilliary_certifier_company_title" />
+
+    <TextView
+        android:id="@+id/tv_ancilliary_certifier_unplanned_inspections_title"
+        android:text="@string/tv_unplanned_inspections_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_ancilliary_certifier_planned_inspections_title" />
+
+    <TextView
+        android:id="@+id/tv_project_number"
+        android:text="@string/tv_project_number_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_ancilliary_certifier_unplanned_inspections_title" />
+
+    <TextView
+        android:id="@+id/tv_project_name"
+        android:text="@string/tv_project_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_project_number" />
+
+    <TextView
+        android:id="@+id/tv_inspection_plan_ref_number_title"
+        android:text="@string/tv_inspection_plan_ref_number_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_project_name" />
+
+    <TextView
+        android:id="@+id/tv_inspection_plan_ref_number_planned_inspection_title"
+        android:text="@string/tv_planned_inspections_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_inspection_plan_ref_number_title" />
+
+    <TextView
+        android:id="@+id/tv_inspection_plan_ref_number_unplanned_inspection_title"
+        android:text="@string/tv_unplanned_inspections_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_inspection_plan_ref_number_planned_inspection_title" />
+
+    <TextView
+        android:id="@+id/tv_inspection_event_category_title"
+        android:text="@string/tv_inspection_event_category_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_inspection_plan_ref_number_unplanned_inspection_title" />
+
+    <TextView
+        android:id="@+id/tv_building_element_classification_title"
+        android:text="@string/tv_building_element_classification_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_inspection_event_category_unplanned_insp_title" />
+
+    <TextView
+        android:id="@+id/tv_building_element_classification_planned_insp_title"
+        android:text="@string/tv_planned_inspections_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_building_element_classification_title" />
 
 
 
+    </LinearLayout>
 
 
-</LinearLayout>
+
