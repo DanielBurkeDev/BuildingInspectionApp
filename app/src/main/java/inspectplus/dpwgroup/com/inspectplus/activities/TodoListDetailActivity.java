@@ -25,26 +25,28 @@ public class TodoListDetailActivity extends Activity {
 
 
     Button btnShowLocation;
-    GPSTracker gps;
+            GPSTracker gps;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_todo_detail_layout);
-        checkLabel = (TextView) findViewById(R.id.check_label);
-        //camerBtn = (ImageButton)findViewById(R.id.camera_icon);
-        Intent i = getIntent();
-        String todoItem = i.getExtras().getString("todo");
-        String todo = i.getExtras().getString("todo2");
-        ActionBar actionBar = getActionBar();
-        actionBar.setTitle(todoItem);
-        actionBar.setIcon(R.drawable.todo);
-        actionBar.setHomeButtonEnabled(true);
-        checkLabel.setText(todo);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.list_todo_detail_layout);
+            checkLabel = (TextView) findViewById(R.id.check_label);
+            //camerBtn = (ImageButton)findViewById(R.id.camera_icon);
+            Intent i = getIntent();
+            String todoItem = i.getExtras().getString("todo");
+            String todo = i.getExtras().getString("todo2");
+
+            // Actionbar
+            ActionBar actionBar = getActionBar();
+            actionBar.setTitle(todoItem);
+            actionBar.setIcon(R.drawable.todo);
+            actionBar.setHomeButtonEnabled(true);
+            checkLabel.setText(todo);
 
 
-        btnShowLocation = (Button) findViewById(R.id.show_location);
+            btnShowLocation = (Button) findViewById(R.id.show_location);
 
         btnShowLocation.setOnClickListener(new View.OnClickListener() {
 

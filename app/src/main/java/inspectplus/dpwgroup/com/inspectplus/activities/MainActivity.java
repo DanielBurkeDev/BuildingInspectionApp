@@ -23,6 +23,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getActionBar().setLogo(R.drawable.inspect_logo);
+        getActionBar().setDisplayShowTitleEnabled(false);
+
         JSONParser parser = new JSONParser(MainActivity.this,
                 "http://f12.solutions/scrpt/dpw/get_all_projects.php", projectsFlag); // WHERE userid = ?
         finish();
