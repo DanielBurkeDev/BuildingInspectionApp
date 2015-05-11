@@ -32,6 +32,8 @@ public class TodoListDetailActivity extends Activity {
         Intent i = getIntent();
         String todoItem = i.getExtras().getString("todo");
         String todo = i.getExtras().getString("todo2");
+
+        // Actionbar
         ActionBar actionBar = getActionBar();
         actionBar.setTitle(todoItem);
         actionBar.setIcon(R.drawable.todo);

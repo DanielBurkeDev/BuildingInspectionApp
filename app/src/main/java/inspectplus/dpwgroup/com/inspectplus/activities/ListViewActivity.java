@@ -29,6 +29,9 @@ public class ListViewActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list_layout);
+		getActionBar().setLogo(R.drawable.inspect_logo);
+		getActionBar().setDisplayShowTitleEnabled(false);
+
 		listView = (ListView)findViewById(R.id.list);
 		projects = EventsSingleton.getEventsSingleton().getProjects();
 		Log.d("List", "Should be called!");

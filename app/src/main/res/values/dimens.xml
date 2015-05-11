@@ -6,4 +6,5 @@
     <dimen name="largeFont">22sp</dimen>
     <dimen name="medfont20">20sp</dimen>
     <dimen name="margin8dp">8dp</dimen>
+    <dimen name="corner_radius">5dp</dimen>
 </resources>

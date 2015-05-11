@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import inspectplus.dpwgroup.com.inspectplus.R;
 import inspectplus.dpwgroup.com.inspectplus.models.InspectionEvent;
 import inspectplus.dpwgroup.com.inspectplus.models.UnplannedInspection;
 import inspectplus.dpwgroup.com.inspectplus.utils.MyAdapter;
@@ -31,8 +32,11 @@ public class TodoListActivity extends ListActivity {
         Intent i = getIntent();
         final String title = i.getExtras().getString("location");
         String id = i.getExtras().getString("id");
+        // Actionbar
         ActionBar actionBar = getActionBar();
-        actionBar.setTitle(title);
+        actionBar.setLogo(R.drawable.inspect_logo);
+        actionBar.setDisplayShowTitleEnabled(false);
+      //  actionBar.setTitle(title);
         actionBar.setHomeButtonEnabled(true);
 
         // perform a SQL query using the unique ID

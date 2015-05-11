@@ -50,6 +50,8 @@ public class SplashActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        getActionBar().setLogo(R.drawable.inspect_logo);
+        getActionBar().setDisplayShowTitleEnabled(false);
 
         // Hashmap for ListView
         //   usersList = new ArrayList<HashMap<String, String>>();
