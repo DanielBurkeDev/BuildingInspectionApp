@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import inspectplus.dpwgroup.com.inspectplus.R;
 
@@ -22,12 +24,15 @@ public class TodoListDetailActivity extends Activity {
     private ImageButton camerBtn;
 
 
+    Button btnShowLocation;
+    GPSTracker gps;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_todo_detail_layout);
-        checkLabel = (TextView)findViewById(R.id.check_label);
+        checkLabel = (TextView) findViewById(R.id.check_label);
         //camerBtn = (ImageButton)findViewById(R.id.camera_icon);
         Intent i = getIntent();
         String todoItem = i.getExtras().getString("todo");
@@ -39,39 +44,64 @@ public class TodoListDetailActivity extends Activity {
         checkLabel.setText(todo);
 
 
+        btnShowLocation = (Button) findViewById(R.id.show_location);
+
+        btnShowLocation.setOnClickListener(new View.OnClickListener() {
 
 
+            @Override
+            public void onClick(View v) {
+                gps = new GPSTracker(TodoListDetailActivity.this);
+
+
+                if (gps.canGetLocation()) {
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+
+                    Toast.makeText(getApplicationContext(), "Your location is -\nLat: " + latitude + "\nLong: "
+                            + longitude, Toast.LENGTH_LONG).    show();
+                } else {
+                    gps.showSettingsAlert();
+                }
+            }
+        });
     }
 
-    public void sendMessage(View view)
-    {
+    public void sendMessage(View view) {
         Intent intent = new Intent(TodoListDetailActivity.this, ImageGalleryActivity.class);
         startActivity(intent);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case android.R.id.home:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Save Inspection Notes?");
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // save this
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // cancel this
-                    }
-                });
-                builder.show();
-        }
-        return (super.onOptionsItemSelected(menuItem));
-    }
-
-
-
 }
+
+
+
+
+
+
+
+//
+//            @Override
+//            public boolean onOptionsItemSelected(MenuItem menuItem) {
+//                switch (menuItem.getItemId()) {
+//                    case android.R.id.home:
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                        builder.setTitle("Save Inspection Notes?");
+//                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                // save this
+//                            }
+//                        });
+//                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                // cancel this
+//                            }
+//                        });
+//                        builder.show();
+//                }
+////                return (super.onOptionsItemSelected(menuItem));
+//            }
+//        });
+//    }
+//}
