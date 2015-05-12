@@ -73,37 +73,10 @@ public class TodoListDetailActivity extends Activity {
         Intent intent = new Intent(TodoListDetailActivity.this, ImageGalleryActivity.class);
         startActivity(intent);
     }
+
+
+
+
 }
 
 
-
-
-
-
-
-//
-//            @Override
-//            public boolean onOptionsItemSelected(MenuItem menuItem) {
-//                switch (menuItem.getItemId()) {
-//                    case android.R.id.home:
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//                        builder.setTitle("Save Inspection Notes?");
-//                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                // save this
-//                            }
-//                        });
-//                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                // cancel this
-//                            }
-//                        });
-//                        builder.show();
-//                }
-////                return (super.onOptionsItemSelected(menuItem));
-//            }
-//        });
-//    }
-//}
