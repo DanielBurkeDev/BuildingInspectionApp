@@ -5,11 +5,16 @@
     android:orientation="vertical"
     android:background="@drawable/papar_texture">
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_projects_label"
+        android:layout_marginTop="@dimen/margin8dp"
+        android:layout_marginLeft="@dimen/margin_16dp"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="@dimen/margin_16dp"
         android:id="@+id/list">
     </ListView>
 

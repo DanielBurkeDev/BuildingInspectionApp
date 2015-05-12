@@ -40,6 +40,7 @@
     <string name="tv_inspection_plan_ref_number_title">Inspection Plan Reference Number</string>
     <string name="tv_inspection_event_category_title">Inspection Event Category</string>
     <string name="tv_building_element_classification_title">Building Element Classification</string>
+    <string name="tv_projects_label">Projects</string>
 
     <string-array name="regulations">
         <item>Regulation 1</item>
