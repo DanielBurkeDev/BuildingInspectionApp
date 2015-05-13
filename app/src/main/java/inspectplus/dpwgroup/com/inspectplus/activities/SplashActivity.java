@@ -49,6 +49,10 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        // Fade in and out animation
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        //
+
         setContentView(R.layout.activity_splash);
         getActionBar().setLogo(R.drawable.inspect_logo);
         getActionBar().setDisplayShowTitleEnabled(false);

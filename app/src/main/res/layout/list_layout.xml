@@ -9,13 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tv_projects_label"
+        android:textSize="@dimen/medfont20"
         android:layout_marginTop="@dimen/margin8dp"
         android:layout_marginLeft="@dimen/margin_16dp"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_16dp"
-        android:id="@+id/list">
+        android:id="@+id/list"
+        android:textSize="@dimen/smallfont18">
     </ListView>
 
 </LinearLayout>

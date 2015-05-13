@@ -22,8 +22,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Fade in and out animation
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        //
         setContentView(R.layout.activity_main);
         getActionBar().setLogo(R.drawable.inspect_logo);
+
         getActionBar().setDisplayShowTitleEnabled(false);
 
         JSONParser parser = new JSONParser(MainActivity.this,

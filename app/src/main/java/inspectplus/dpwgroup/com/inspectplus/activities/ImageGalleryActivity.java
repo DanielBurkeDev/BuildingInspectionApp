@@ -52,7 +52,13 @@
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        // Fade in and out animation
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        //
         setContentView(R.layout.image_gallery);
+
+        getActionBar().setLogo(R.drawable.inspect_logo);
+        getActionBar().setDisplayShowTitleEnabled(false);
 
         captureBtn = (Button)findViewById(R.id.capture_btn1);
         captureBtn.setOnClickListener(this);
