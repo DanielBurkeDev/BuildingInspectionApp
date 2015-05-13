@@ -52,7 +52,6 @@ public class MyAdapter extends BaseAdapter {
 			view = inflater.inflate(R.layout.row_layout, parent, false);
 			TextView text1 = (TextView)view.findViewById(R.id.name);
 			TextView text2 = (TextView)view.findViewById(R.id.latest_message);
-			ImageView image = (ImageView)view.findViewById(R.id.todo_image);
 			text1.setText(events.get(position));
 			view.setOnClickListener(new View.OnClickListener(){
 

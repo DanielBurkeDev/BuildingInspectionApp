@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,31 +24,55 @@ import inspectplus.dpwgroup.com.inspectplus.R;
 public class TodoListDetailActivity extends Activity {
     private TextView checkLabel;
     private ImageButton camerBtn;
-
+    private Spinner spEventCat, spBuildingElClass;
 
     Button btnShowLocation;
-            GPSTracker gps;
+    GPSTracker gps;
 
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.list_todo_detail_layout);
-            checkLabel = (TextView) findViewById(R.id.check_label);
-            //camerBtn = (ImageButton)findViewById(R.id.camera_icon);
-            Intent i = getIntent();
-            String todoItem = i.getExtras().getString("todo");
-            String todo = i.getExtras().getString("todo2");
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Fade in and out animation
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+        //
+        setContentView(R.layout.list_todo_detail_layout);
 
-            // Actionbar
-            ActionBar actionBar = getActionBar();
-            actionBar.setTitle(todoItem);
-            actionBar.setIcon(R.drawable.todo);
-            actionBar.setHomeButtonEnabled(true);
-            checkLabel.setText(todo);
+        spEventCat = (Spinner) findViewById(R.id.sp_inspection_event_cat_title);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.regulations, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spEventCat.setAdapter(adapter);
+
+        spBuildingElClass = (Spinner) findViewById(R.id.sp_building_element_cat_title);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.regulations, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spBuildingElClass.setAdapter(adapter2);
+
+        checkLabel = (TextView) findViewById(R.id.check_label);
+        //camerBtn = (ImageButton)findViewById(R.id.camera_icon);
+        Intent i = getIntent();
+        String todoItem = i.getExtras().getString("todo");
+        String todo = i.getExtras().getString("todo2");
+
+        // Actionbar
+//        ActionBar actionBar = getActionBar();
+//        actionBar.setTitle(todoItem);
+//        actionBar.setIcon(R.drawable.todo);
+//        actionBar.setHomeButtonEnabled(true);
+        getActionBar().setLogo(R.drawable.inspect_logo);
+        getActionBar().setDisplayShowTitleEnabled(false);
+        checkLabel.setText(todo);
 
 
-            btnShowLocation = (Button) findViewById(R.id.show_location);
+        btnShowLocation = (Button) findViewById(R.id.show_location);
 
         btnShowLocation.setOnClickListener(new View.OnClickListener() {
 
@@ -61,7 +87,7 @@ public class TodoListDetailActivity extends Activity {
                     double longitude = gps.getLongitude();
 
                     Toast.makeText(getApplicationContext(), "Your location is -\nLat: " + latitude + "\nLong: "
-                            + longitude, Toast.LENGTH_LONG).    show();
+                            + longitude, Toast.LENGTH_LONG).show();
                 } else {
                     gps.showSettingsAlert();
                 }
@@ -73,8 +99,6 @@ public class TodoListDetailActivity extends Activity {
         Intent intent = new Intent(TodoListDetailActivity.this, ImageGalleryActivity.class);
         startActivity(intent);
     }
-
-
 
 
 }

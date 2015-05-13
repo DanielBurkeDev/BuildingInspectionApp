@@ -52,7 +52,7 @@ public class TodoListActivity extends ListActivity {
         insp.setId("1111");
         insp.setName("Check Wall insulation");
         insp.setLocation("All Bedrooms");
-        //
+
         UnplannedInspection insp2 = new UnplannedInspection();
         insp2.setId("2222");
         insp2.setName("Check Fire-retardant materials");
@@ -62,7 +62,29 @@ public class TodoListActivity extends ListActivity {
         insp3.setId("3333");
         insp3.setName("Check all glazing on 1st floor");
         insp3.setLocation("First Floor");
-        addToEventsList(insp, insp2, insp3);
+
+        //
+        UnplannedInspection insp4= new UnplannedInspection();
+        insp4.setId("4444");
+        insp4.setName("Check Electrical");
+        insp4.setLocation("All Rooms");
+        //
+        UnplannedInspection insp5 = new UnplannedInspection();
+        insp5.setId("5555");
+        insp5.setName("Check Ceilings");
+        insp5.setLocation("All Rooms");
+        //
+        UnplannedInspection insp6 = new UnplannedInspection();
+        insp6.setId("6666");
+        insp6.setName("Check Wall insulation");
+        insp6.setLocation("All Rooms");
+        //
+        UnplannedInspection insp7 = new UnplannedInspection();
+        insp7.setId("7777");
+        insp7.setName("Check Flooring");
+        insp7.setLocation("All Rooms");
+
+        addToEventsList(insp, insp2, insp3, insp4, insp5, insp6, insp7);
     }
 
     private void addToEventsList(InspectionEvent... es) {

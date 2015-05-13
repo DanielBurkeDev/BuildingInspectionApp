@@ -28,8 +28,13 @@ public class ListViewActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// Fade in and out animation
+		overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+		//
 		setContentView(R.layout.list_layout);
 		getActionBar().setLogo(R.drawable.inspect_logo);
+		getActionBar().setHomeButtonEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setDisplayShowTitleEnabled(false);
 
 		listView = (ListView)findViewById(R.id.list);
