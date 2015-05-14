@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,6 +27,7 @@ public class TodoListDetailActivity extends Activity {
     private TextView checkLabel;
     private ImageButton camerBtn;
     private Spinner spEventCat, spBuildingElClass;
+    private Toolbar toolbar;
 
     Button btnShowLocation;
     GPSTracker gps;
@@ -70,6 +73,7 @@ public class TodoListDetailActivity extends Activity {
         getActionBar().setLogo(R.drawable.inspect_logo);
         getActionBar().setDisplayShowTitleEnabled(false);
         checkLabel.setText(todo);
+
 
 
         btnShowLocation = (Button) findViewById(R.id.show_location);

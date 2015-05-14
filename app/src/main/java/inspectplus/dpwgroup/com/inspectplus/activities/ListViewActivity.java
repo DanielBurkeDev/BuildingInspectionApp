@@ -1,8 +1,10 @@
 package inspectplus.dpwgroup.com.inspectplus.activities;
 
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,17 +15,19 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+
 import inspectplus.dpwgroup.com.inspectplus.R;
 import inspectplus.dpwgroup.com.inspectplus.models.Project;
 import inspectplus.dpwgroup.com.inspectplus.utils.EventsSingleton;
 
 
 
-public class ListViewActivity extends Activity {
+public class ListViewActivity extends ActionBarActivity {
 	private ListView listView;
 	private ArrayList<Project> projects;
 	private ArrayList<String> projectString = new ArrayList<String>();
 	private static boolean isShowing = false;
+	private Toolbar toolbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +36,19 @@ public class ListViewActivity extends Activity {
 		overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 		//
 		setContentView(R.layout.list_layout);
-		getActionBar().setLogo(R.drawable.inspect_logo);
-		getActionBar().setHomeButtonEnabled(true);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setDisplayShowTitleEnabled(false);
+
+		toolbar = (Toolbar) findViewById(R.id.app_bar);
+		setSupportActionBar(toolbar);
+		toolbar.setLogo(R.drawable.inspect_logo);
+
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
+
+//		getActionBar().setLogo(R.drawable.inspect_logo);
+//		getActionBar().setHomeButtonEnabled(true);
+//		getActionBar().setDisplayHomeAsUpEnabled(true);
+//		getActionBar().setDisplayShowTitleEnabled(false);
 
 		listView = (ListView)findViewById(R.id.list);
 		projects = EventsSingleton.getEventsSingleton().getProjects();

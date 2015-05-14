@@ -2,22 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/papar_texture">
+    android:background="@drawable/papar_texture"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/appbar" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tv_projects_label"
-        android:textSize="@dimen/medfont20"
+        android:layout_marginLeft="@dimen/margin_16dp"
         android:layout_marginTop="@dimen/margin8dp"
-        android:layout_marginLeft="@dimen/margin_16dp"/>
+        android:text="@string/tv_projects_label"
+        android:textSize="@dimen/medfont20" />
+
     <ListView
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_16dp"
-        android:id="@+id/list"
-        android:textSize="@dimen/smallfont18">
-    </ListView>
+        android:textSize="@dimen/smallfont18"></ListView>
 
 </LinearLayout>

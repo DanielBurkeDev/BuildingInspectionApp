@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ListView;
 
@@ -23,6 +24,7 @@ public class TodoListActivity extends ListActivity {
     private ListView listView;
     private ArrayList<String> todoList = new ArrayList<String>();
     private ArrayList<InspectionEvent> events = new ArrayList<InspectionEvent>();
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +34,14 @@ public class TodoListActivity extends ListActivity {
         Intent i = getIntent();
         final String title = i.getExtras().getString("location");
         String id = i.getExtras().getString("id");
-        // Actionbar
-        ActionBar actionBar = getActionBar();
-        actionBar.setLogo(R.drawable.inspect_logo);
-        actionBar.setDisplayShowTitleEnabled(false);
-      //  actionBar.setTitle(title);
-        actionBar.setHomeButtonEnabled(true);
+//        // Actionbar
+//        ActionBar actionBar = getActionBar();
+//        actionBar.setLogo(R.drawable.inspect_logo);
+//        actionBar.setDisplayShowTitleEnabled(false);
+//      //  actionBar.setTitle(title);
+//        actionBar.setHomeButtonEnabled(true);
+
+
 
         // perform a SQL query using the unique ID
         // dummy data

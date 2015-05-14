@@ -2,6 +2,7 @@ package inspectplus.dpwgroup.com.inspectplus.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -14,7 +15,7 @@ import inspectplus.dpwgroup.com.inspectplus.models.InspectionEvent;
 import inspectplus.dpwgroup.com.inspectplus.utils.JSONParser;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
     private ListView listView;
     private ArrayList<InspectionEvent> events;
     private String projectsFlag = "projectsFlag";
@@ -26,9 +27,9 @@ public class MainActivity extends Activity {
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         //
         setContentView(R.layout.activity_main);
-        getActionBar().setLogo(R.drawable.inspect_logo);
-
-        getActionBar().setDisplayShowTitleEnabled(false);
+//        getActionBar().setLogo(R.drawable.inspect_logo);
+//
+//        getActionBar().setDisplayShowTitleEnabled(false);
 
         JSONParser parser = new JSONParser(MainActivity.this,
                 "http://f12.solutions/scrpt/dpw/get_all_projects.php", projectsFlag); // WHERE userid = ?

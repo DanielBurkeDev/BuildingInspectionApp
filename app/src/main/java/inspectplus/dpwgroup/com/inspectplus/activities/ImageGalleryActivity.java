@@ -23,6 +23,7 @@
         import android.content.Intent;
         import android.graphics.Bitmap;
         import android.graphics.BitmapFactory;
+        import android.support.v7.app.ActionBarActivity;
         import android.util.Log;
         import android.view.Menu;
         import android.view.View;
@@ -37,7 +38,7 @@
         import inspectplus.dpwgroup.com.inspectplus.R;
 
 
-        public class ImageGalleryActivity extends Activity implements OnClickListener {
+        public class ImageGalleryActivity extends ActionBarActivity implements OnClickListener {
 
     Button captureBtn = null;
     final int CAMERA_CAPTURE = 1;
@@ -57,8 +58,8 @@
         //
         setContentView(R.layout.image_gallery);
 
-        getActionBar().setLogo(R.drawable.inspect_logo);
-        getActionBar().setDisplayShowTitleEnabled(false);
+//        getActionBar().setLogo(R.drawable.inspect_logo);
+//        getActionBar().setDisplayShowTitleEnabled(false);
 
         captureBtn = (Button)findViewById(R.id.capture_btn1);
         captureBtn.setOnClickListener(this);

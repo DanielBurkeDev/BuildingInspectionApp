@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,7 @@ import inspectplus.dpwgroup.com.inspectplus.JSONParser;
 import inspectplus.dpwgroup.com.inspectplus.R;
 
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends ActionBarActivity {
     private EditText etUsername, etPassword;
     private Button btnLogin;
     // Progress Dialog
@@ -54,8 +55,8 @@ public class SplashActivity extends Activity {
         //
 
         setContentView(R.layout.activity_splash);
-        getActionBar().setLogo(R.drawable.inspect_logo);
-        getActionBar().setDisplayShowTitleEnabled(false);
+//        getActionBar().setLogo(R.drawable.inspect_logo);
+//        getActionBar().setDisplayShowTitleEnabled(false);
 
         // Hashmap for ListView
         //   usersList = new ArrayList<HashMap<String, String>>();
