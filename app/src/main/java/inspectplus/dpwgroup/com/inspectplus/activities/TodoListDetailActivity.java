@@ -23,7 +23,7 @@ import inspectplus.dpwgroup.com.inspectplus.R;
 /**
  * Created by Barry Dempsey on 01/05/15.
  */
-public class TodoListDetailActivity extends Activity {
+public class TodoListDetailActivity extends ActionBarActivity {
     private TextView checkLabel;
     private ImageButton camerBtn;
     private Spinner spEventCat, spBuildingElClass;
@@ -70,21 +70,17 @@ public class TodoListDetailActivity extends Activity {
 //        actionBar.setTitle(todoItem);
 //        actionBar.setIcon(R.drawable.todo);
 //        actionBar.setHomeButtonEnabled(true);
-        getActionBar().setLogo(R.drawable.inspect_logo);
-        getActionBar().setDisplayShowTitleEnabled(false);
+      //  getActionBar().setLogo(R.drawable.inspect_logo);
+       // getActionBar().setDisplayShowTitleEnabled(false);
         checkLabel.setText(todo);
-
-
 
         btnShowLocation = (Button) findViewById(R.id.show_location);
 
         btnShowLocation.setOnClickListener(new View.OnClickListener() {
 
-
             @Override
             public void onClick(View v) {
                 gps = new GPSTracker(TodoListDetailActivity.this);
-
 
                 if (gps.canGetLocation()) {
                     double latitude = gps.getLatitude();

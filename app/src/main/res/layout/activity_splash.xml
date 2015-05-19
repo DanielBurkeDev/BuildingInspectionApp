@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_username"
             android:layout_marginTop="@dimen/margin_16dp"
+            android:inputType="textPassword"
             android:hint="@string/et_password_hint" />
 
         <Button

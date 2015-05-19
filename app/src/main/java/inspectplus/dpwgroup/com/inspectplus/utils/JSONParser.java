@@ -171,6 +171,7 @@ public class JSONParser extends JSONObject {
                 project.setId(id);
                 project.setName(name);
                 project.setProjectName(projectName);
+               project.setLocation(location);
                 project.setProjectAdmin(projectAdmin);
                 project.setEstimatedValue(estimateValue);
                 project.setCreationDate(parseTheStringDate(creationDate));
@@ -235,7 +236,7 @@ public class JSONParser extends JSONObject {
 
     private Date parseTheStringDate(String date) {
         Date pDate = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             pDate = sdf.parse(date);
         } catch (ParseException e) {
