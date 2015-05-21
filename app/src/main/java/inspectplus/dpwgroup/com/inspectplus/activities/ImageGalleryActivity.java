@@ -37,7 +37,6 @@
 
         import inspectplus.dpwgroup.com.inspectplus.R;
 
-
         public class ImageGalleryActivity extends ActionBarActivity implements OnClickListener {
 
     Button captureBtn = null;

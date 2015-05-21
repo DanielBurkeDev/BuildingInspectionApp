@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -50,22 +49,22 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/show_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button"
+                android:text="Camera" />
+
+            <Button
                 android:id="@+id/image_gallery_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginLeft="5dp"
                 android:background="@drawable/rounded_button"
                 android:onClick="sendMessage"
                 android:text="Image Gallery" />
-
-            <Button
-                android:id="@+id/show_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_button"
-                android:text="Show Location" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,148 +74,14 @@
             android:scrollbars="vertical">
 
             <TextView
-                android:id="@+id/tv_assigned_certifier_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/tv_assigned_certifier"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tv_assigned_certifier_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_toRightOf="@+id/tv_assigned_certifier_label"
-                android:text="John Smith" />
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/tv_assigned_certifier_company_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_assigned_certifier_name"
-                android:layout_marginTop="10dp"
-                android:text="@string/tv_assigned_certifier_company_title"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tv_assigned_certifier_company_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_assigned_certifier_name"
-                android:layout_toRightOf="@+id/tv_assigned_certifier_company_label"
-                android:text="Archetype" />
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/tv_ancilliary_certifier_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_assigned_certifier_company_title"
-                android:layout_marginTop="10dp"
-                android:text="@string/tv_ancilliary_certifier_title"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tv_ancilliary_certifier_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_assigned_certifier_company_title"
-                android:layout_toRightOf="@+id/tv_ancilliary_certifier_label"
-                android:text="Mark Byrne" />
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/tv_ancilliary_certifier_co_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_ancilliary_certifier_title"
-                android:layout_marginRight="@dimen/margin8dp"
-                android:text="Ancillary Certifier Co."
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tv_ancilliary_certifier_co_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_ancilliary_certifier_title"
-                android:layout_toRightOf="@+id/tv_ancilliary_certifier_co_label"
-                android:text="Indo Ltd" />
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/tv_project_num_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_ancilliary_certifier_co_label"
-                android:layout_marginRight="@dimen/margin8dp"
-                android:text="@string/tv_project_number_title"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tv_project_num_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_ancilliary_certifier_co_title"
-                android:layout_toRightOf="@+id/tv_project_num_label"
-                android:text="35214H7B" />
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/tv_project_name_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_project_num_label"
-                android:layout_marginRight="@dimen/margin8dp"
-                android:text="@string/tv_project_name_title"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tv_project_name_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_project_num_label"
-                android:layout_toRightOf="@+id/tv_project_num_label"
-                android:text="Alpha Quadrant II" />
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
                 android:id="@+id/tv_inspection_plan_refnum_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_project_name_label"
+
                 android:layout_marginRight="@dimen/margin8dp"
-                android:text="@string/tv_inspection_plan_ref_number_title"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"/>
+                android:text="@string/tv_inspection_plan_ref_number_title"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_inspection_plan_title"
@@ -226,11 +91,12 @@
                 android:layout_marginRight="@dimen/margin8dp"
                 android:layout_toRightOf="@+id/tv_inspection_plan_refnum_label"
                 android:text="5598TTV" />
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
 
             <TextView
                 android:id="@+id/tv_inspection_event_refnum_label"
@@ -238,9 +104,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_inspection_plan_refnum_label"
                 android:layout_marginRight="@dimen/margin8dp"
-                android:text="Inspection Event Reference Number"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"/>
+                android:text="Inspection Event Reference Number"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_inspection_event_refnum_title"
@@ -250,11 +116,12 @@
                 android:layout_marginRight="@dimen/margin8dp"
                 android:layout_toRightOf="@+id/tv_inspection_event_refnum_label"
                 android:text="9911TTV" />
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
 
             <TextView
                 android:id="@+id/tv_inspection_event_cat_label"
@@ -262,9 +129,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_inspection_event_refnum_label"
                 android:layout_marginRight="@dimen/margin8dp"
-                android:text="@string/tv_inspection_event_category_title"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"/>
+                android:text="@string/tv_inspection_event_category_title"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/sp_inspection_event_cat_title"
@@ -277,17 +144,18 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
+
             <TextView
                 android:id="@+id/tv_building_element_cat_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_inspection_event_cat_label"
                 android:layout_marginRight="@dimen/margin8dp"
-                android:text="Building Element Classification"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"/>
+                android:text="Building Element Classification"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/sp_building_element_cat_title"
@@ -296,20 +164,163 @@
                 android:layout_below="@+id/tv_inspection_event_cat_label"
                 android:layout_marginRight="@dimen/margin8dp"
                 android:layout_toRightOf="@+id/tv_building_element_cat_label" />
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/tv_assigned_certifier_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/tv_assigned_certifier"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_assigned_certifier_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_toRightOf="@+id/tv_assigned_certifier_label"
+                android:text="John Smith" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/tv_assigned_certifier_company_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_assigned_certifier_name"
+                android:layout_marginTop="10dp"
+                android:text="@string/tv_assigned_certifier_company_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_assigned_certifier_company_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_assigned_certifier_name"
+                android:layout_toRightOf="@+id/tv_assigned_certifier_company_label"
+                android:text="Archetype" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/tv_ancilliary_certifier_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_assigned_certifier_company_title"
+                android:layout_marginTop="10dp"
+                android:text="@string/tv_ancilliary_certifier_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_ancilliary_certifier_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_assigned_certifier_company_title"
+                android:layout_toRightOf="@+id/tv_ancilliary_certifier_label"
+                android:text="Mark Byrne" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/tv_ancilliary_certifier_co_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_ancilliary_certifier_title"
+                android:layout_marginRight="@dimen/margin8dp"
+                android:layout_marginTop="10dp"
+                android:text="Ancillary Certifier Co."
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_ancilliary_certifier_co_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_ancilliary_certifier_title"
+                android:layout_toRightOf="@+id/tv_ancilliary_certifier_co_label"
+                android:text="Indo Ltd" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/tv_project_num_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_ancilliary_certifier_co_label"
+                android:layout_marginRight="@dimen/margin8dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/tv_project_number_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_project_num_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_ancilliary_certifier_co_title"
+                android:layout_toRightOf="@+id/tv_project_num_label"
+                android:text="35214H7B" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/tv_project_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_project_num_label"
+                android:layout_marginRight="@dimen/margin8dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/tv_project_name_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_project_name_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_project_num_label"
+                android:layout_toRightOf="@+id/tv_project_num_label"
+                android:text="Alpha Quadrant II" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
+
+
             <TextView
                 android:id="@+id/tv_response_action_originator_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_building_element_cat_label"
                 android:layout_marginRight="@dimen/margin8dp"
+                android:layout_marginTop="10dp"
                 android:text="Response Action Originator"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_response_action_originator_title"
@@ -319,14 +330,16 @@
                 android:layout_marginRight="@dimen/margin8dp"
                 android:layout_toRightOf="@+id/tv_response_action_originator_label"
                 android:text="Kale Marks" />
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
