@@ -81,6 +81,12 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
         //
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
+        // session manager
+        session = new SessionManager(getApplicationContext());
+
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
         // get intent
         Intent i = getIntent();
         //  final String title = i.getExtras().getString("location");
@@ -201,13 +207,14 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
                 data.append(projnum + "\n");
                 // Show events with same project id as item clicked
                 Log.d("todo projid: ", "within json forloop" + projectid + " " + projid);
-
-                    InspectionEventsModel listeventsmodel = new InspectionEventsModel();
-                    listeventsmodel.setProjectNumber(projnum);
-                    listeventsmodel.setProjectName(projname);
-                    listeventsmodel.setInspectionEventCategory(inspEventCat);
-                    listeventsmodel.setBuildingElementClassification(buildingElementCat);
-                    listevents.add(listeventsmodel);
+                    if(projectid.equals(projid)) {
+                        InspectionEventsModel listeventsmodel = new InspectionEventsModel();
+                        listeventsmodel.setProjectNumber(projnum);
+                        listeventsmodel.setProjectName(projname);
+                        listeventsmodel.setInspectionEventCategory(inspEventCat);
+                        listeventsmodel.setBuildingElementClassification(buildingElementCat);
+                        listevents.add(listeventsmodel);
+                    }
 
             }
 
@@ -258,7 +265,7 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
         db.deleteUsers();
 
         // Launching the login activity
-        Intent intent = new Intent(TodoListActivity.this, TodoListDetailActivity.class);
+        Intent intent = new Intent(TodoListActivity.this, SplashActivity.class);
         startActivity(intent);
         finish();
     }
