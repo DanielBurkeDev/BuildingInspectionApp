@@ -12,6 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.dpwgroup.inspectplus.model.UsernameKVPairs;
 
 import org.apache.http.NameValuePair;
@@ -20,10 +26,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import inspectplus.dpwgroup.com.inspectplus.JSONParser;
 import inspectplus.dpwgroup.com.inspectplus.R;
+import inspectplus.dpwgroup.com.inspectplus.utils.SQLiteHandler;
+import inspectplus.dpwgroup.com.inspectplus.utils.SessionManager;
+import inspectplus.dpwgroup.com.inspectplus.utils.VolleySingleton;
+import inspectplus.dpwgroup.com.inspectplus.utils.projListAdapter;
 
 
 public class SplashActivity extends ActionBarActivity {
@@ -32,10 +44,16 @@ public class SplashActivity extends ActionBarActivity {
     // Progress Dialog
     private ProgressDialog pDialog;
     // Creating JSON Parser object
+    private SessionManager session;
     private JSONParser jParser = new JSONParser();
     //  private ArrayList<HashMap<String, String>> usersList;
     // url to get all products list
     private static String url_all_users = "http://f12.solutions/scrpt/dpw/get_all_users.php";
+    public static final String URL_IPLUS = "http://10.0.3.2/servicesample/services.php";
+    private VolleySingleton volleySingleton;
+    private RequestQueue requestQueue;
+    private SQLiteHandler db;
+
     // products JSONArray
     private JSONArray users = null;
     // JSON Node names
@@ -65,9 +83,172 @@ public class SplashActivity extends ActionBarActivity {
         etPassword = (EditText) findViewById(R.id.et_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnLogin.setOnClickListener(new ButtonListener());
-        etUsername.setText("jsmith@dpw-group.com");
-        etPassword.setText("f5489cd12b8b28f2825bff08c709ae6be7193707");
+        etUsername.setText("carlos.pinto@devstream.io");
+        etPassword.setText("p@ssw0rd");
+
+        // Progress dialog
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
+
+        // Session manager
+        session = new SessionManager(getApplicationContext());
+        // SQLite database handler
+        db = new SQLiteHandler(getApplicationContext());
+
+
+        volleySingleton = VolleySingleton.getInstance();
+        requestQueue = volleySingleton.getRequestQueue();
+
+        // Check if user is already logged in or not
+        if (session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
+
+
+
+    // Button Listener
+    private class ButtonListener implements View.OnClickListener {
+
+        public void onClick(View v) {
+
+                String email = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                switch (v.getId()) {
+                    case R.id.btn_login:
+                        Toast.makeText(getApplicationContext(), "json Request selected",
+                                Toast.LENGTH_SHORT).show();
+
+                        // Check for empty data in the form
+                        if (email.trim().length() > 0 && password.trim().length() > 0) {
+//                        Toast.makeText(getApplicationContext(),
+//                                "email and password" + email+ " " +password, Toast.LENGTH_LONG)
+//                                .show();
+                            // login user
+                            checkLogin(email, password);
+                            // new MyAsyncTask().execute(email, password);
+                        } else {
+                            // Prompt user to enter credentials
+                            Toast.makeText(getApplicationContext(),
+                                    "Please enter the credentials!", Toast.LENGTH_LONG)
+                                    .show();
+                        }
+
+//                    Intent intent = new Intent(SplashActivity.this, RegisteredProjectsActivity.class);
+//                    startActivity(intent);
+                        break;
+
+                default:
+                    Toast.makeText(getApplicationContext(), "No options selected",
+                            Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+    private void checkLogin(final String memail, final String mpassword) {
+        pDialog.setMessage("Logging in ...");
+        showDialog();
+        Log.d("fields: ",  memail +" " + mpassword);
+
+        //////////////////////////////////// STRING REQUEST
+        StringRequest request= new StringRequest(Request.Method.POST, URL_IPLUS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                hideDialog();
+                Log.d("Response", response);
+//                Toast.makeText(getApplicationContext(), "Response: " + response.toString(),
+//                        Toast.LENGTH_SHORT).show();
+                //stringToJsonObject(response);
+
+                // convert string to json
+                try {
+
+                    JSONObject obj = new JSONObject(response);
+                    Log.d("My App", obj.toString());
+                    // Check for error in json
+                    if (!obj.has("ERROR")){
+                        session.setLogin(true);
+                        Log.d("My App", obj.toString());
+
+                        String name = obj.getString("username");
+                        String token = obj.getString("token");
+                        Log.d("check", obj.length() + name + token);
+
+//                        // Inserting row in users table
+                        db.addUser(name, token);
+
+                    // Launch main activity
+                        Intent intent = new Intent(SplashActivity.this,
+                                MainActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                    }else {
+                        // Error in login. Get the error message
+                        String errorMsg = obj.getString("message");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+
+
+                } catch (Throwable t) {
+                    Log.e("login", "Could not parse malformed JSON: \"" + response + "\"");
+                }
+                //
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // error
+              //  Log.d("Error Response:", error.getMessage());
+                Toast.makeText(getApplicationContext(), "Response Error: " + error.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+                hideDialog();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("command", "login");
+                params.put("username", memail);
+                params.put("password",mpassword);
+
+                return params;
+            }
+
+        };
+        requestQueue.add(request);
+//////////////////////////////////////////////////////
+
+    }
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
+    private void stringToJsonObject (String jsonString){
+
+        try {
+
+            JSONObject obj = new JSONObject(jsonString);
+
+            Log.d("My App", obj.toString());
+
+        } catch (Throwable t) {
+            Log.e("users", "Could not parse malformed JSON: \"" + jsonString + "\"");
+        }
+    }
+
 
     private class Login extends AsyncTask<String, String, JSONObject> {
 
@@ -166,28 +347,6 @@ public class SplashActivity extends ActionBarActivity {
             Log.d("No user found", "No one here by that name");
             Toast.makeText(getApplicationContext(), "No User Found Please Try Again",
                     Toast.LENGTH_LONG).show();
-        }
-    }
-
-    // Button Listener
-    private class ButtonListener implements View.OnClickListener {
-
-        public void onClick(View v) {
-
-            switch (v.getId()) {
-                case R.id.btn_login:
-                    Toast.makeText(getApplicationContext(), "Login Button Selected",
-                            Toast.LENGTH_SHORT).show();
-                    new Login().execute();
-//                    Intent intent = new Intent(SplashActivity.this, RegisteredProjectsActivity.class);
-//                    startActivity(intent);
-                    break;
-
-                default:
-                    Toast.makeText(getApplicationContext(), "No options selected",
-                            Toast.LENGTH_SHORT).show();
-            }
-
         }
     }
 }

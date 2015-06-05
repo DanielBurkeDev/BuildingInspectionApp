@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <item name="edittext_color" type="color">#ffffff</item>
+    <item name="edittext_color" type="color">#536E6B</item>
     <color name="primaryColor">#FFC107</color>
     <color name="primaryColorDark">#FFA000</color>
     <color name="accentColor">#9C27B0</color>
     <color name="accentColor2">#080357</color>
     <color name="accentColor3">#2274A5</color>
     <color name="accentColor4">#BF211E</color>
-    <color name="accentColor5">#2D1E2F</color>
+    <color name="accentColor5">#ffffff</color>
     <color name="textColorPrimary">#080357</color>
 </resources>

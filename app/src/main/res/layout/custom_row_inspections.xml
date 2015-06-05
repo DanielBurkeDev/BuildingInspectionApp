@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:id="@+id/tv_projnum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_16dp"
+        android:paddingLeft="@dimen/margin_16dp"
+        android:paddingTop="@dimen/margin_16dp"
+        android:text="1234"
+        android:textColor="@color/edittext_color"
+        android:textSize="14dp"
+        />
+
+    <TextView
+        android:id="@+id/tv_projname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_projnum"
+        android:paddingLeft="@dimen/margin_16dp"
+        android:paddingTop="@dimen/margin_16dp"
+        android:text="the name"
+        android:textColor="@color/edittext_color"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/tv_inspection_event_cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_projnum"
+        android:paddingBottom="@dimen/margin_16dp"
+        android:paddingLeft="@dimen/margin_16dp"
+        android:paddingTop="@dimen/margin_16dp"
+        android:text="some address 1425 to the road"
+        android:textColor="@color/edittext_color"
+        android:textSize="14dp" />
+    <TextView
+        android:id="@+id/tv_building_element_cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_inspection_event_cat"
+        android:layout_below="@+id/tv_projnum"
+        android:paddingLeft="@dimen/margin_16dp"
+        android:paddingTop="@dimen/margin_16dp"
+        android:text="building elemetent"
+        android:textColor="@color/edittext_color"
+        android:textSize="14dp" />
+
+</RelativeLayout>

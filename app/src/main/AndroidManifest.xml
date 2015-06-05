@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-
+        android:name=".utils.MyApplication"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
@@ -26,6 +26,7 @@
         <activity android:name=".activities.TodoListActivity"></activity>
         <activity android:name=".activities.TodoListDetailActivity"></activity>
         <activity android:name=".activities.ImageGalleryActivity"></activity>
+        <activity android:name=".activities.ProjectHomeActivity"></activity>
 
 
     </application>
