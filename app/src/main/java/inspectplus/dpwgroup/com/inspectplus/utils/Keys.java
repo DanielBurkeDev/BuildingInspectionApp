@@ -13,9 +13,11 @@ public interface Keys {
         public static final String KEY_PROJECTDESCRIPTION="description";
         public static final String KEY_ROLEDESCRIPTION="roleDescription";
 
+        public static final String KEY_INSPECTION_EVENT_ID="inspectionEventId";
         public static final String KEY_INSPECTIONS="inspections";
         public static final String KEY_ASSIGNED_CERTIFIER="assignedCertifier";
         public static final String KEY_ASSIGNED_CERTIFIER_COMPANY="assignedCertifierCompany";
+        public static final String KEY_ANCILLIARY_CERTIFIER="ancilliaryCertifier";
         public static final String KEY_ANCILLIARY_COMPANY="ancilliaryCompany";
         public static final String KEY_INSPECTIONPLAN_REFERENCE_NUMBER="inspectionPlanReferenceNumber";
         public static final String KEY_INSPECTION_EVENT_NUMBER="inspectionEventNumber";

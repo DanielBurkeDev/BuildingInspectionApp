@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,12 +24,12 @@ import inspectplus.dpwgroup.com.inspectplus.R;
 import inspectplus.dpwgroup.com.inspectplus.utils.SQLiteHandler;
 import inspectplus.dpwgroup.com.inspectplus.utils.SessionManager;
 
-
-/**
- * Created by Barry Dempsey on 01/05/15.
- */
 public class TodoListDetailActivity extends ActionBarActivity {
-    private TextView checkLabel;
+    private String projectid, projnum, projname, inspEventCat, buildingElementCat, assignedcertifier,
+            assignedcertifiercompany, ancilliarycertifier,ancilliarycompany, inspectionplanrefnum,
+            inspectioneventnum, responseactionoriginator, scheduleddate, inspectioneventid;
+    private TextView checkLabel, insp_plan_ref_num, insp_event_ref_num, ass_certifier,
+            ass_certifier_co, proj_num, proj_name, resp_action_orig, anc_certifier, anc_cert_co;
     private ImageButton camerBtn;
     private Spinner spEventCat, spBuildingElClass;
     private Toolbar toolbar;
@@ -85,12 +86,12 @@ public class TodoListDetailActivity extends ActionBarActivity {
 
         checkLabel = (TextView) findViewById(R.id.check_label);
         //camerBtn = (ImageButton)findViewById(R.id.camera_icon);
-        Intent i = getIntent();
-        String todoItem = i.getExtras().getString("todo");
-        String todo = i.getExtras().getString("todo2");
+
+        getExtras();
+        setUpUI();
 
 
-        checkLabel.setText(todo);
+        //  checkLabel.setText(todo);
 
         btnShowLocation = (Button) findViewById(R.id.show_location);
 
@@ -112,6 +113,7 @@ public class TodoListDetailActivity extends ActionBarActivity {
             }
         });
     }
+
     private void showDialog() {
         if (!pDialog.isShowing())
             pDialog.show();
@@ -141,8 +143,17 @@ public class TodoListDetailActivity extends ActionBarActivity {
         if (id == R.id.logout) {
             logoutUser();
         }
+        if(id==R.id.gallery){
+            Intent intent = new Intent(TodoListDetailActivity.this, ImageUploadActivity.class);
+            intent.putExtra("project_id", projectid);
+            intent.putExtra("inspection_event_id", inspectioneventid);
+            startActivity(intent);
+
+
+        }
         return super.onOptionsItemSelected(item);
     }
+
     private void logoutUser() {
         session.setLogin(false);
 
@@ -157,6 +168,51 @@ public class TodoListDetailActivity extends ActionBarActivity {
     public void sendMessage(View view) {
         Intent intent = new Intent(TodoListDetailActivity.this, ImageGalleryActivity.class);
         startActivity(intent);
+    }
+
+    private void getExtras() {
+        // get intent
+        Intent i = getIntent();
+        //  final String title = i.getExtras().getString("location");
+        projectid = i.getExtras().getString("project_id");
+        inspectioneventid = i.getExtras().getString("insp_event_id");
+        projnum = i.getExtras().getString("project_num");
+        projname = i.getExtras().getString("project_name");
+        inspEventCat = i.getExtras().getString("insp_event_cat");
+        buildingElementCat = i.getExtras().getString("building_elem_cat");
+        assignedcertifier = i.getExtras().getString("ass_certifier");
+        assignedcertifiercompany = i.getExtras().getString("ass_cert_co");
+        ancilliarycertifier = i.getExtras().getString("anc_certifier");
+        ancilliarycompany = i.getExtras().getString("anc_co");
+        inspectionplanrefnum = i.getExtras().getString("insp_plan_ref_num");
+        inspectioneventnum = i.getExtras().getString("ins_event_num");
+        responseactionoriginator = i.getExtras().getString("resp_act_originator");
+        scheduleddate = i.getExtras().getString("sched_date");
+
+        Log.d("detail: ", "" + projectid + " " + inspectionplanrefnum + " " + inspectioneventnum);
+
+
+    }
+
+    private void setUpUI() {
+        insp_plan_ref_num = (TextView) findViewById(R.id.tv_inspection_plan_title);
+        insp_plan_ref_num.setText(inspectionplanrefnum);
+        insp_event_ref_num = (TextView) findViewById(R.id.tv_inspection_event_refnum_title);
+        insp_event_ref_num.setText(inspectioneventnum);
+        ass_certifier = (TextView) findViewById(R.id.tv_assigned_certifier_name);
+        ass_certifier.setText(assignedcertifier);
+        ass_certifier_co = (TextView) findViewById(R.id.tv_assigned_certifier_company_title);
+        ass_certifier_co.setText(assignedcertifiercompany);
+        proj_num = (TextView) findViewById(R.id.tv_project_num_title);
+        proj_num.setText(projnum);
+        anc_certifier = (TextView) findViewById(R.id.tv_ancilliary_certifier_title);
+        anc_certifier.setText(ancilliarycertifier);
+        anc_cert_co = (TextView) findViewById(R.id.tv_ancilliary_certifier_co_title);
+        anc_cert_co.setText(ancilliarycompany);
+        proj_name = (TextView) findViewById(R.id.tv_project_name_title);
+        proj_name.setText(projname);
+        resp_action_orig = (TextView) findViewById(R.id.tv_response_action_originator_title);
+        resp_action_orig.setText(responseactionoriginator);
     }
 
 

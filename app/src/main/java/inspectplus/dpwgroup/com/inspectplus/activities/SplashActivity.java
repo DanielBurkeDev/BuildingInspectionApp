@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,6 +35,7 @@ import inspectplus.dpwgroup.com.inspectplus.JSONParser;
 import inspectplus.dpwgroup.com.inspectplus.R;
 import inspectplus.dpwgroup.com.inspectplus.utils.SQLiteHandler;
 import inspectplus.dpwgroup.com.inspectplus.utils.SessionManager;
+import inspectplus.dpwgroup.com.inspectplus.utils.VolleyErrorHelper;
 import inspectplus.dpwgroup.com.inspectplus.utils.VolleySingleton;
 import inspectplus.dpwgroup.com.inspectplus.utils.projListAdapter;
 
@@ -50,6 +52,7 @@ public class SplashActivity extends ActionBarActivity {
     // url to get all products list
     private static String url_all_users = "http://f12.solutions/scrpt/dpw/get_all_users.php";
     public static final String URL_IPLUS = "http://10.0.3.2/servicesample/services.php";
+    public static final String URL_IPLUSONLINE = "http://www.skatdev.com/tst/dpw/dpw45/services.php";
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
     private SQLiteHandler db;
@@ -205,6 +208,17 @@ public class SplashActivity extends ActionBarActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // handle error
+                String message = VolleyErrorHelper.getMessage(error, SplashActivity.this);
+               // displayYourMessageHere("...");
+                Toast.makeText(getApplicationContext(), "Response Error: " + message,
+                        Toast.LENGTH_LONG).show();
+
+//                if(error instanceof NoConnectionError) {
+//                   // logoutUser();
+//                    Toast.makeText(getApplicationContext(), "No internet Access, Check your internet connection.",
+//                            Toast.LENGTH_LONG).show();
+//                }
                 // error
               //  Log.d("Error Response:", error.getMessage());
                 Toast.makeText(getApplicationContext(), "Response Error: " + error.getMessage(),

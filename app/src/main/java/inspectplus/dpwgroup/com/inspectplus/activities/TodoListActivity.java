@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import static inspectplus.dpwgroup.com.inspectplus.utils.Keys.ProjectKeys.*;
 
 
@@ -41,6 +43,7 @@ import inspectplus.dpwgroup.com.inspectplus.utils.InspectionListAdapter;
 import inspectplus.dpwgroup.com.inspectplus.utils.MyAdapter;
 import inspectplus.dpwgroup.com.inspectplus.utils.SQLiteHandler;
 import inspectplus.dpwgroup.com.inspectplus.utils.SessionManager;
+import inspectplus.dpwgroup.com.inspectplus.utils.VolleyErrorHelper;
 import inspectplus.dpwgroup.com.inspectplus.utils.VolleySingleton;
 
 public class TodoListActivity extends ActionBarActivity implements InspectionListAdapter.ClickListener {
@@ -112,10 +115,11 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
 
         // perform a SQL query using the unique ID
         // dummy data
-       // populateTheData();
+        // populateTheData();
 //        MyAdapter adapter = new MyAdapter(this, todoList);
 //        setListAdapter(adapter);
     }
+
     private void sendRequest(final String mUserName, final String mToken) {
         pDialog.setMessage("Getting List of Events ...");
         showDialog();
@@ -166,6 +170,11 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                String message = VolleyErrorHelper.getMessage(error, TodoListActivity.this);
+                // displayYourMessageHere("...");
+                Toast.makeText(getApplicationContext(), "Response Error: " + message,
+                        Toast.LENGTH_LONG).show();
+                logoutUser();
                 // error
                 Log.d("Error Response:", error.getMessage());
 //                Toast.makeText(getApplicationContext(), "Response Error: " + error.getMessage(),
@@ -188,6 +197,7 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
 //////////////////////////////////////////////////////
 
     }
+
     private ArrayList<InspectionEventsModel> parseJsonObjectResponse(JSONObject response) {
         ArrayList<InspectionEventsModel> listevents = new ArrayList<>();
 
@@ -204,17 +214,42 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
                 String projname = currentInspection.getString(KEY_PROJECTNAME);
                 String inspEventCat = currentInspection.getString(KEY_INSPECTION_EVENT_CATEGORY);
                 String buildingElementCat = currentInspection.getString(KEY_BUILDING_ELEMENT_CLASSIFICATION);
+
+                String inspectioneventid = currentInspection.getString(KEY_INSPECTION_EVENT_ID);
+                String assignedcertifier = currentInspection.getString(KEY_ASSIGNED_CERTIFIER);
+                String assignedcertifiercompany = currentInspection.getString(KEY_ASSIGNED_CERTIFIER_COMPANY);
+                String ancilliarycompany = currentInspection.getString(KEY_ANCILLIARY_COMPANY);
+                String ancilliarycertifier = currentInspection.getString(KEY_ANCILLIARY_CERTIFIER);
+                String inspectionplanrefnum = currentInspection.getString(KEY_INSPECTIONPLAN_REFERENCE_NUMBER);
+                String inspectioneventnum = currentInspection.getString(KEY_INSPECTION_EVENT_NUMBER);
+                String responseactionoriginator = currentInspection.getString(KEY_RESPONSE_ORIGINATOR);
+                String scheduleddate = currentInspection.getString(KEY_SCHEDULED_DATE);
+
+
                 data.append(projnum + "\n");
                 // Show events with same project id as item clicked
                 Log.d("todo projid: ", "within json forloop" + projectid + " " + projid);
-                    if(projectid.equals(projid)) {
-                        InspectionEventsModel listeventsmodel = new InspectionEventsModel();
-                        listeventsmodel.setProjectNumber(projnum);
-                        listeventsmodel.setProjectName(projname);
-                        listeventsmodel.setInspectionEventCategory(inspEventCat);
-                        listeventsmodel.setBuildingElementClassification(buildingElementCat);
-                        listevents.add(listeventsmodel);
-                    }
+                if (projectid.equals(projid)) {
+                    InspectionEventsModel listeventsmodel = new InspectionEventsModel();
+                    listeventsmodel.setProjectId(projid);
+                    listeventsmodel.setProjectNumber(projnum);
+                    listeventsmodel.setProjectName(projname);
+                    listeventsmodel.setInspectionEventCategory(inspEventCat);
+                    listeventsmodel.setBuildingElementClassification(buildingElementCat);
+
+                    listeventsmodel.setInspectionEventId(inspectioneventid);
+                    listeventsmodel.setAssignedCertifier(assignedcertifier);
+                    listeventsmodel.setAssignedCertifierCompany(assignedcertifiercompany);
+                    listeventsmodel.setAncilliaryCompany(ancilliarycompany);
+                    listeventsmodel.setAncilliaryCertifier(ancilliarycertifier);
+                    listeventsmodel.setInspectionPlanReferenceNumber(inspectionplanrefnum);
+                    listeventsmodel.setInspectionEventNumber(inspectioneventnum);
+                    listeventsmodel.setResponseActionOriginator(responseactionoriginator);
+                    listeventsmodel.setScheduledDate(scheduleddate);
+
+
+                    listevents.add(listeventsmodel);
+                }
 
             }
 
@@ -223,7 +258,7 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return  listevents;
+        return listevents;
     }
 
 
@@ -256,6 +291,10 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
         if (id == R.id.logout) {
             logoutUser();
         }
+        if (id == R.id.gallery) {
+            Intent intent = new Intent(TodoListActivity.this, ImageGalleryActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -274,11 +313,41 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
     @Override
     public void itemClicked(View view, int position) {
 
-       InspectionEventsModel inspEventsModel = listevents.get(position);
+        InspectionEventsModel inspEventsModel = listevents.get(position);
         String projectid = inspEventsModel.getProjectId();
+        String projnum = inspEventsModel.getProjectNumber();
+        String projname = inspEventsModel.getProjectName();
+        String inspEventCat = inspEventsModel.getInspectionEventCategory();
+        String buildingElementCat = inspEventsModel.getBuildingElementClassification();
+
+        String inspectioneventid = inspEventsModel.getInspectionEventId();
+        String assignedcertifier = inspEventsModel.getAssignedCertifier();
+        String assignedcertifiercompany = inspEventsModel.getAncilliaryCompany();
+        String ancilliarycertifier = inspEventsModel.getAncilliaryCertifier();
+        String ancilliarycompany = inspEventsModel.getAncilliaryCompany();
+        String inspectionplanrefnum = inspEventsModel.getInspectionPlanReferenceNumber();
+        String inspectioneventnum = inspEventsModel.getInspectionEventNumber();
+        String responseactionoriginator = inspEventsModel.getResponseActionOriginator();
+        String scheduleddate = inspEventsModel.getScheduledDate();
+
         Intent intent = new Intent(TodoListActivity.this, TodoListDetailActivity.class);
         intent.putExtra("project_id", projectid);
-        Log.d("project id: ", "" + projectid);
+
+        intent.putExtra("insp_event_id", inspectioneventid);
+        intent.putExtra("project_num", projnum);
+        intent.putExtra("project_name", projname);
+        intent.putExtra("insp_event_cat", inspEventCat);
+        intent.putExtra("building_elem_cat", buildingElementCat);
+        intent.putExtra("ass_certifier", assignedcertifier);
+        intent.putExtra("ass_cert_co", assignedcertifiercompany);
+        intent.putExtra("anc_certifier", ancilliarycertifier);
+        intent.putExtra("anc_co", ancilliarycompany);
+        intent.putExtra("insp_plan_ref_num", inspectionplanrefnum);
+        intent.putExtra("ins_event_num", inspectioneventnum);
+        intent.putExtra("resp_act_originator", responseactionoriginator);
+        intent.putExtra("sched_date", scheduleddate);
+
+        Log.d("put extras: ", "" + ancilliarycertifier + inspectioneventnum + " " + inspectionplanrefnum + projectid + projname + inspEventCat + buildingElementCat + assignedcertifier);
         startActivity(intent);
 
     }

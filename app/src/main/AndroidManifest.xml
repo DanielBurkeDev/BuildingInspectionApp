@@ -5,9 +5,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-feature android:name="android.hardware.camera" />
+
     <application
-        android:allowBackup="true"
         android:name=".utils.MyApplication"
+        android:allowBackup="true"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
@@ -16,19 +19,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="activities.SplashActivity" />
         </activity>
-        <activity android:name=".activities.ListViewActivity"></activity>
-        <activity android:name=".activities.TodoListActivity"></activity>
-        <activity android:name=".activities.TodoListDetailActivity"></activity>
-        <activity android:name=".activities.ImageGalleryActivity"></activity>
-        <activity android:name=".activities.ProjectHomeActivity"></activity>
-
-
+        <activity android:name=".activities.ListViewActivity" />
+        <activity android:name=".activities.TodoListActivity" />
+        <activity android:name=".activities.TodoListDetailActivity" />
+        <activity android:name=".activities.ImageGalleryActivity" />
+        <activity android:name=".activities.ProjectHomeActivity" />
+        <activity android:name=".activities.ImageUploadActivity"></activity>
     </application>
 
 </manifest>

@@ -42,6 +42,10 @@
     <string name="tv_building_element_classification_title">Building Element Classification</string>
     <string name="tv_projects_label">Projects</string>
     <string name="logout">Logout</string>
+    <string name="generic_server_down">Please Check Your Internet Connection</string>
+    <string name="no_internet">There is no internet connection</string>
+    <string name="generic_error">Please check if you are connected to the Internet</string>
+    <string name="gallery">Gallery</string>
 
     <string-array name="regulations">
         <item>Regulation 1</item>
@@ -53,5 +57,6 @@
         <item>Action Owner 2</item>
         <item>Action Owner 3</item>
     </string-array>
+    <string name="title_activity_image_upload">ImageUploadActivity</string>
 
 </resources>

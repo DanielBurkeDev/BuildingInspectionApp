@@ -25,6 +25,7 @@ import static inspectplus.dpwgroup.com.inspectplus.utils.Keys.ProjectKeys.*;
 
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -49,11 +50,13 @@ import inspectplus.dpwgroup.com.inspectplus.utils.Keys;
 import inspectplus.dpwgroup.com.inspectplus.utils.L;
 import inspectplus.dpwgroup.com.inspectplus.utils.SQLiteHandler;
 import inspectplus.dpwgroup.com.inspectplus.utils.SessionManager;
+import inspectplus.dpwgroup.com.inspectplus.utils.VolleyErrorHelper;
 import inspectplus.dpwgroup.com.inspectplus.utils.VolleySingleton;
 import inspectplus.dpwgroup.com.inspectplus.utils.projListAdapter;
 
 
 public class ListViewActivity extends ActionBarActivity implements projListAdapter.ClickListener {
+
     private RecyclerView recyclerView;
     private projListAdapter adapterProjList;
     private ListView listView;
@@ -81,7 +84,7 @@ public class ListViewActivity extends ActionBarActivity implements projListAdapt
         // Toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        toolbar.setLogo(R.drawable.inspect_logo);
+        toolbar.setLogo(R.drawable.inspect_logo_080615);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         //
         // Progress dialog
@@ -200,8 +203,19 @@ public class ListViewActivity extends ActionBarActivity implements projListAdapt
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                String message = VolleyErrorHelper.getMessage(error, ListViewActivity.this);
+                // displayYourMessageHere("...");
+                Toast.makeText(getApplicationContext(), "Response Error: " + message,
+                        Toast.LENGTH_LONG).show();
+                logoutUser();
+
+//                if(error instanceof NoConnectionError) {
+//                    logoutUser();
+//                    Toast.makeText(getApplicationContext(), "No internet Access, Check your internet connection.",
+//                            Toast.LENGTH_LONG).show();
+//                }
                 // error
-                Log.d("Error Response:", error.getMessage());
+                 Log.d("Error Response:", ""+ error.getMessage());
 //                Toast.makeText(getApplicationContext(), "Response Error: " + error.getMessage(),
 //                        Toast.LENGTH_SHORT).show();
                 hideDialog();
@@ -285,6 +299,10 @@ public class ListViewActivity extends ActionBarActivity implements projListAdapt
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout) {
             logoutUser();
+        }
+        if(id==R.id.gallery){
+            Intent intent = new Intent(ListViewActivity.this, ImageUploadActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

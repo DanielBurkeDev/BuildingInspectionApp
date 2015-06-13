@@ -4,7 +4,7 @@
     <item name="edittext_color" type="color">#536E6B</item>
     <color name="primaryColor">#FFC107</color>
     <color name="primaryColorDark">#FFA000</color>
-    <color name="accentColor">#9C27B0</color>
+    <color name="accentColor">#3F51B5</color>
     <color name="accentColor2">#080357</color>
     <color name="accentColor3">#2274A5</color>
     <color name="accentColor4">#BF211E</color>

@@ -4,6 +4,7 @@ package inspectplus.dpwgroup.com.inspectplus.models;
  * Created by skatgroovey on 05/05/2015.
  */
 public class InspectionEventsModel {
+    private String inspectionEventId;
     private String assignedCertifier;
     private String assignedCertifierCompany;
     private String projectId;
@@ -22,10 +23,11 @@ public class InspectionEventsModel {
     public InspectionEventsModel() {
     }
 
-    public InspectionEventsModel(String assignedCertifier, String assignedCertifierCompany, String projectId, String ancilliaryCertifier,
+    public InspectionEventsModel(String inspectionEventId, String assignedCertifier, String assignedCertifierCompany, String projectId, String ancilliaryCertifier,
                             String ancilliaryCompany, String projectNumber, String projectName, String inspectionPlanReferenceNumber,
                             String inspectionEventNumber, String inspectionEventCategory, String buildingElementClassification,
                             String responseActionOriginator, String mediaId, String scheduledDate) {
+        this.inspectionEventId = inspectionEventId;
         this.assignedCertifier = assignedCertifier;
         this.assignedCertifierCompany = assignedCertifierCompany;
         this.projectId = projectId;
@@ -40,6 +42,14 @@ public class InspectionEventsModel {
         this.responseActionOriginator = responseActionOriginator;
         this.mediaId = mediaId;
         this.scheduledDate = scheduledDate;
+    }
+
+    public String getInspectionEventId() {
+        return inspectionEventId;
+    }
+
+    public void setInspectionEventId(String inspectionEventId) {
+        this.inspectionEventId = inspectionEventId;
     }
 
     public String getAssignedCertifier() {
@@ -156,8 +166,9 @@ public class InspectionEventsModel {
 
     @Override
     public String toString() {
-        return "InspectionEvents{" +
-                "assignedCertifier='" + assignedCertifier + '\'' +
+        return "InspectionEventsModel{" +
+                "inspectionEventId='" + inspectionEventId + '\'' +
+                ", assignedCertifier='" + assignedCertifier + '\'' +
                 ", assignedCertifierCompany='" + assignedCertifierCompany + '\'' +
                 ", projectId='" + projectId + '\'' +
                 ", ancilliaryCertifier='" + ancilliaryCertifier + '\'' +
