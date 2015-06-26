@@ -13,13 +13,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NoConnectionError;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.dpwgroup.inspectplus.model.UsernameKVPairs;
+
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -53,6 +53,8 @@ public class SplashActivity extends ActionBarActivity {
     private static String url_all_users = "http://f12.solutions/scrpt/dpw/get_all_users.php";
     public static final String URL_IPLUS = "http://10.0.3.2/servicesample/services.php";
     public static final String URL_IPLUSONLINE = "http://www.skatdev.com/tst/dpw/dpw45/services.php";
+    public static final String URL_ONLINE_SERVICE = "http://dpw.developerexpert.com/demo/dpw/services.php";
+    public static final String URL_SKAT_SERVICE = "http://skatdev.com/tst/dpw/dpw2606/services.php";
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
     private SQLiteHandler db;
@@ -105,7 +107,7 @@ public class SplashActivity extends ActionBarActivity {
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            Intent intent = new Intent(SplashActivity.this, ListViewActivity.class);
             startActivity(intent);
             finish();
         }
@@ -140,8 +142,7 @@ public class SplashActivity extends ActionBarActivity {
                                     .show();
                         }
 
-//                    Intent intent = new Intent(SplashActivity.this, RegisteredProjectsActivity.class);
-//                    startActivity(intent);
+
                         break;
 
                 default:
@@ -157,7 +158,7 @@ public class SplashActivity extends ActionBarActivity {
         Log.d("fields: ",  memail +" " + mpassword);
 
         //////////////////////////////////// STRING REQUEST
-        StringRequest request= new StringRequest(Request.Method.POST, URL_IPLUS, new Response.Listener<String>() {
+        StringRequest request= new StringRequest(Request.Method.POST, URL_ONLINE_SERVICE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 hideDialog();
@@ -185,7 +186,7 @@ public class SplashActivity extends ActionBarActivity {
 
                     // Launch main activity
                         Intent intent = new Intent(SplashActivity.this,
-                                MainActivity.class);
+                                ListViewActivity.class);
                         startActivity(intent);
                         finish();
 
@@ -263,84 +264,6 @@ public class SplashActivity extends ActionBarActivity {
         }
     }
 
-
-    private class Login extends AsyncTask<String, String, JSONObject> {
-
-        /**
-         * Before starting background thread Show Progress Dialog
-         */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(SplashActivity.this);
-            pDialog.setMessage("Finding user. Please wait...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-
-        /**
-         * getting All products from url
-         */
-        protected JSONObject doInBackground(String... args) {
-
-            // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            // getting JSON string from URL
-            JSONObject json = jParser.makeHttpRequest(url_all_users, "GET", params);
-
-            // Check your log cat for JSON response
-            if(json != null) {
-                Log.d("All Users: ", json.toString());
-                try {
-                    // Checking for SUCCESS TAG
-                    int success = json.getInt(TAG_SUCCESS);
-
-                    if (success == 1) {
-                        return json;
-
-                    } else {
-                        // no users found
-                        Log.d("No users found", "None found");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                return json;
-            }
-            return null;
-        }
-
-        /**
-         * After completing background task Dismiss the progress dialog
-         * *
-         */
-        protected void onPostExecute(JSONObject result) {
-            // dismiss the dialog after getting all products
-            pDialog.dismiss();
-            if(result != null) {
-                //Users found
-                // Getting Array of Users
-                try {
-                    users = result.getJSONArray(TAG_USERS);
-                    Log.d("Json Test", users.toString());
-                    Log.d("JSON Response", result.names().toString());
-                    UsernameKVPairs uvp = new UsernameKVPairs(result);
-                    System.out.println("map : " + uvp.userMap(result));
-                    userValidate();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }else {
-                Toast.makeText(SplashActivity.this,
-                        "No connection - please check Internet",
-                        Toast.LENGTH_LONG).show();
-            }
-        }
-
-    }
 
     private void openActivity() {
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);

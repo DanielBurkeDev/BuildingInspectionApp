@@ -2,35 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
+
     <include
         android:id="@+id/app_bar"
         layout="@layout/appbar" />
+
     <ImageView
         android:id="@+id/imgView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" >
-    </ImageView>
-    <EditText
-        android:id="@+id/notestest"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_weight="1"></ImageView>
+
 
     <Button
         android:id="@+id/buttonLoadPicture"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="0"
+        android:background="@drawable/rounded_button"
         android:onClick="loadImagefromGallery"
-        android:text="Load Picture" >
-    </Button>
+        android:text="Load Picture" />
+
+    <TextView
+        android:id="@+id/txtPercentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:textSize="30dp" />
+
+
+    <EditText
+        android:id="@+id/notestest"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top|left"
+        android:hint="Enter Your Notes Here"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:maxLines="10"
+        android:minLines="6" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_button"
         android:onClick="uploadImage"
         android:text="Upload" />
 

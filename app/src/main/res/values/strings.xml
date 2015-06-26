@@ -58,5 +58,9 @@
         <item>Action Owner 3</item>
     </string-array>
     <string name="title_activity_image_upload">ImageUploadActivity</string>
+    <string name="upload">Upload</string>
+    <string name="inspection_event_detail">Inspection Event Details</string>
+    <string name="camera">Camera</string>
+    <string name="label_upload">Upload</string>
 
 </resources>

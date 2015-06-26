@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
 //        getActionBar().setDisplayShowTitleEnabled(false);
 
         JSONParser parser = new JSONParser(MainActivity.this,
-                "http://f12.solutions/scrpt/dpw/get_all_projects.php", projectsFlag); // WHERE userid = ?
+                "http://f12.solutions/scrpt/dpw/get_all_projectsh.php", projectsFlag); // WHERE userid = ?
         finish();
     }
 

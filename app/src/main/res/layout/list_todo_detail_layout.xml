@@ -3,15 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <include
             android:id="@+id/app_bar"
             layout="@layout/appbar" />
-
 
 
         <LinearLayout
@@ -36,21 +35,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_16dp"
                     android:gravity="center"
-                    android:hint="Hint"
+                    android:text="@string/inspection_event_detail"
                     android:textSize="20sp"
                     android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/note_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.0"
-                    android:gravity="top"
-                    android:hint="Lets take some notes!"
-                    android:inputType="textMultiLine"
-                    android:lines="4"
-                    android:scrollbars="vertical"
-                    android:textSize="@dimen/smallfont18" />
 
             </LinearLayout>
 
@@ -61,22 +48,21 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/show_location"
+                    android:id="@+id/camera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_button"
-                    android:text="Camera" />
+                    android:text="@string/camera" />
 
                 <Button
-                    android:id="@+id/image_gallery_btn"
+                    android:id="@+id/upload"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/rounded_button"
-                    android:onClick="sendMessage"
-                    android:text="Image Gallery" />
+                    android:text="@string/label_upload" />
             </LinearLayout>
 
             <LinearLayout

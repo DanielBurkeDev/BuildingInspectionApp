@@ -1,7 +1,9 @@
 package inspectplus.dpwgroup.com.inspectplus.activities;
 
-import android.app.Activity;
+
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -19,6 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -28,30 +32,56 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
-import org.json.JSONArray;
+import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import ch.boye.httpclientandroidlib.HttpEntity;
+import ch.boye.httpclientandroidlib.HttpResponse;
+import ch.boye.httpclientandroidlib.client.HttpClient;
+import ch.boye.httpclientandroidlib.client.methods.HttpPost;
+import ch.boye.httpclientandroidlib.entity.ContentType;
+import ch.boye.httpclientandroidlib.entity.mime.HttpMultipartMode;
+import ch.boye.httpclientandroidlib.entity.mime.MultipartEntityBuilder;
+import ch.boye.httpclientandroidlib.entity.mime.content.FileBody;
+import ch.boye.httpclientandroidlib.entity.mime.content.StringBody;
+import ch.boye.httpclientandroidlib.impl.client.DefaultHttpClient;
 import inspectplus.dpwgroup.com.inspectplus.R;
-import inspectplus.dpwgroup.com.inspectplus.models.ListProjectsModel;
+
+import inspectplus.dpwgroup.com.inspectplus.models.ImageUploadModel;
+import inspectplus.dpwgroup.com.inspectplus.utils.Config;
+
+import inspectplus.dpwgroup.com.inspectplus.utils.ImagesAPI;
 import inspectplus.dpwgroup.com.inspectplus.utils.SQLiteHandler;
+import inspectplus.dpwgroup.com.inspectplus.utils.ServiceGenerator;
 import inspectplus.dpwgroup.com.inspectplus.utils.SessionManager;
 import inspectplus.dpwgroup.com.inspectplus.utils.VolleyErrorHelper;
 import inspectplus.dpwgroup.com.inspectplus.utils.VolleySingleton;
+import inspectplus.dpwgroup.com.inspectplus.utils.uploadLoopJ;
+import retrofit.Callback;
+import retrofit.Endpoint;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.mime.TypedFile;
 
-import static inspectplus.dpwgroup.com.inspectplus.utils.Keys.ProjectKeys.KEY_PROJECTID;
-import static inspectplus.dpwgroup.com.inspectplus.utils.Keys.ProjectKeys.KEY_PROJECTLOCATION;
-import static inspectplus.dpwgroup.com.inspectplus.utils.Keys.ProjectKeys.KEY_PROJECTNAME;
-import static inspectplus.dpwgroup.com.inspectplus.utils.Keys.ProjectKeys.KEY_PROJECTNUMBER;
-import static inspectplus.dpwgroup.com.inspectplus.utils.Keys.ProjectKeys.KEY_PROJECTS;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.loopj.android.http.*;
+
 
 public class ImageUploadActivity extends ActionBarActivity {
     private EditText notes;
@@ -65,31 +95,44 @@ public class ImageUploadActivity extends ActionBarActivity {
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
     public static final String URL_SERVICE = "http://10.0.3.2/servicesample/services.php";
+    public static final String URL_ONLINE_SERVICE = "http://dpw.developerexpert.com/demo/dpw/services.php";
     private String encodedString;
     // RequestParams params = new RequestParams();
-    private String imgPath, fileName;
+    private String imgPath;
     private Bitmap bitmap;
     private Toolbar toolbar;
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static int RESULT_LOAD_IMG = 1;
     private GPSTracker gps;
     private String theLatitude;
-    private  String theLongitude;
-    private  String imgJsonObjString = "";
+    private String theLongitude;
+    private String imgJsonObjString = "";
+    long totalSize = 0;
+    private ProgressBar progressBar;
+    private ProgressDialog mProgressDialog;
+    private TextView txtPercentage;
+    private String filePath = null;
+    private String name = "";
+    private String token = "";
+    private String fileName = "";
+    private String thecommand = "uploadInspectionEntry";
+    private String metaData = "";
+    private String access = "readWrite";
+    private String et_notes = "";
+    private String imgcurTime = "";
+    private String trimmedprojid = "";
+    // Retrofit
+    private static final String ENDPOINT = "http://10.0.3.2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_upload);
         notes = (EditText) findViewById(R.id.notestest);
+        txtPercentage = (TextView) findViewById(R.id.txtPercentage);
+        //progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressDialog = new ProgressDialog(this);
 
-        prgDialog = new ProgressDialog(this);
-        // Set Cancelable as False
-        prgDialog.setCancelable(false);
-
-        // Progress dialog
-        pDialog = new ProgressDialog(this);
-        pDialog.setCancelable(false);
         // Toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -105,11 +148,18 @@ public class ImageUploadActivity extends ActionBarActivity {
 
         // session manager
         session = new SessionManager(getApplicationContext());
+        // Fetching user details from sqlite ie: token
+        HashMap<String, String> user = db.getUserDetails();
+        //
+        name = user.get("name");
+        token = user.get("token");
+
 
         if (!session.isLoggedIn()) {
             logoutUser();
         }
         getExtras();
+        getGPS();
 
     }
 
@@ -154,7 +204,6 @@ public class ImageUploadActivity extends ActionBarActivity {
                 // params.put("filename", fileName);
 
 
-
             } else {
                 Toast.makeText(this, "You haven't picked Image",
                         Toast.LENGTH_LONG).show();
@@ -169,23 +218,21 @@ public class ImageUploadActivity extends ActionBarActivity {
     // When Upload button is clicked
     public void uploadImage(View v) {
         // Get text from notes and check if empty
-        String et_notes = notes.getText().toString().trim();
+        et_notes = notes.getText().toString().trim();
         // When Image is selected from Gallery
         Log.d("imgPath ", imgPath);
 
         if (imgPath != null && !imgPath.isEmpty() && !et_notes.isEmpty()) {
-            prgDialog.setMessage("Converting Image to Binary Data");
-            prgDialog.show();
+//            pDialog.setMessage("Converting Image to Binary Data");
+//            pDialog.show();
             // Convert image to String using Base64
             //encodeImagetoString();
-            imageEncodingToString();
-            // Fetching user details from sqlite ie: token
-            HashMap<String, String> user = db.getUserDetails();
-            //
-            String name = user.get("name");
-            String token = user.get("token");
-            String imgname = fileName;
-            sendRequest(name, token, imgname);
+            //imageEncodingToString();
+
+            //sendRequest(name, token, imgname);
+            // new ImageUpload().execute();
+            postImageToServer();
+            //  postParamsToServer();
 
             // When Image is not selected from Gallery
         } else {
@@ -196,90 +243,153 @@ public class ImageUploadActivity extends ActionBarActivity {
         }
     }
 
-    private void sendRequest(final String mUserName, final String mToken, final String mImgName) {
-        pDialog.setMessage("Getting List of Projects ...");
-        showDialog();
-        Log.d("fields: ", mUserName + " " + mToken + " " + mImgName);
-        buildInspectionEntry();
+
+    private void postImageToServer() {
+        imgcurTime = dateFormat.format(new Date()).toString();
+        metaData = theLatitude + theLongitude;
+        HashMap<String, String> params = new HashMap<String, String>();
+
+        params.put("command", "uploadInspectionEntry");
+        params.put("token", token);
+        params.put("projectId", projectid);
+        params.put("inspectionEventId", inspectionEventId);
+        params.put("notes", et_notes);
+        params.put("metaData", "some data");
+        params.put("dateAcquired", imgcurTime);
+        params.put("access", "readWrite");
+
+        //  Log.d("params ", thecommand + " " + token + " " + projectid + " " + inspectionEventId + " " + et_notes + " " + metaData + " " + imgcurTime + " " + access + " " + imgPath);
+
+        ImagesAPI service = ServiceGenerator.createService(ImagesAPI.class, ImagesAPI.BASE_URL);
+        TypedFile typedFile = new TypedFile("multipart/form-data", new File(imgPath));
+        Log.d("params ", params.toString() + " " + imgPath);
 
 
-        //////////////////////////////////// STRING REQUEST
-        StringRequest request = new StringRequest(Request.Method.POST, URL_SERVICE, new Response.Listener<String>() {
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
+
+        service.upload(params, typedFile, new Callback<ImageUploadModel>() {
             @Override
-            public void onResponse(String response) {
-                hideDialog();
-                Log.d("Response", response);
-//                Toast.makeText(getApplicationContext(), "Response: " + response.toString(),
-//                        Toast.LENGTH_SHORT).show();
+            public void success(ImageUploadModel r, retrofit.client.Response response) {
+                Log.d("Retro Response", response.toString());
+                Log.d("Retro Response", r.getResult());
 
-                // convert string to jsonObject
-                try {
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
 
-                    JSONObject obj = new JSONObject(response);
 
-//                    listProjects = parseJsonObjectResponse(obj);
-//                    adapterProjList.setProjectsList(listProjects);
-                    Log.d("imgupload resp", obj.toString());
+            }
 
-                    // Check for error in json
-                    if (!obj.equals("ERROR")) {
-                        String imgtoken = obj.getString("responseToken");
-                        Log.d("check imgtoken",  mImgName + " " + imgtoken);
+            @Override
+            public void failure(RetrofitError error) {
 
-                        // Add to sqlite db
+                Log.d("retro err", error.toString());
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
+        {
 
-                    } else {
-                        // Error in login. Get the error message
-//						String errorMsg = array.getString("message");
-//						Toast.makeText(getApplicationContext(),
-//								errorMsg, Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
+    /**
+     * Method to show alert dialog
+     */
+    private void showAlert(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message).setTitle("Response from Servers")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // do nothing
                     }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
 
-                } catch (Throwable t) {
-                    Log.e("projects", "Could not parse malformed JSON: \"" + response + "\"");
-                }
-                //
+    private class ImageUpload extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            // Making progress bar visible
+            progressBar.setVisibility(View.VISIBLE);
+
+            // updating progress bar value
+            progressBar.setProgress(progress[0]);
+
+            // updating percentage value
+            txtPercentage.setText(String.valueOf(progress[0]) + "%");
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
 
 
+            String responseString = null;
+
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(Config.FILE_UPLOAD_URL);
+
+            File file = new File(imgPath);
+            StringBody thecommand = new StringBody("uploadInspectionEntry", ContentType.MULTIPART_FORM_DATA);
+            StringBody thetoken = new StringBody(token, ContentType.MULTIPART_FORM_DATA);
+            StringBody theprojid = new StringBody(projectid, ContentType.MULTIPART_FORM_DATA);
+            StringBody theinspeventid = new StringBody(inspectionEventId, ContentType.MULTIPART_FORM_DATA);
+            StringBody thenotes = new StringBody(et_notes, ContentType.MULTIPART_FORM_DATA);
+            StringBody theaccess = new StringBody("readWrite", ContentType.MULTIPART_FORM_DATA);
+            StringBody themetadata = new StringBody("some meta data", ContentType.MULTIPART_FORM_DATA);
+            StringBody thedate = new StringBody(imgcurTime, ContentType.MULTIPART_FORM_DATA);
+
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            // Extra parameters if you want to pass to server
+            builder.addPart("command", thecommand);
+            builder.addPart("token", thetoken);
+            builder.addPart("projectId", theprojid);
+            builder.addPart("inspectionEventId", theinspeventid);
+            builder.addPart("notes", thenotes);
+            builder.addPart("Access", theaccess);
+            builder.addPart("metaData", themetadata);
+            builder.addPart("dateAcquired ", thedate);
+
+
+            HttpEntity entity = builder.build();
+            httppost.setEntity(entity);
+            try {
+                HttpResponse response = httpclient.execute(httppost);
+                responseString = response.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                String message = VolleyErrorHelper.getMessage(error, ImageUploadActivity.this);
-                // displayYourMessageHere("...");
-                Toast.makeText(getApplicationContext(), "Response Error: " + message,
-                        Toast.LENGTH_LONG).show();
-                logoutUser();
 
-//                if(error instanceof NoConnectionError) {
-//                    logoutUser();
-//                    Toast.makeText(getApplicationContext(), "No internet Access, Check your internet connection.",
-//                            Toast.LENGTH_LONG).show();
-//                }
-                // error
-                Log.d("Error Response:", "" + error.getMessage());
-//                Toast.makeText(getApplicationContext(), "Response Error: " + error.getMessage(),
-//                        Toast.LENGTH_SHORT).show();
-                hideDialog();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("command", "uploadInspectionEntry");
-                params.put("token", mToken);
-                params.put("projectId", projectid);
-                params.put("inspectionEventId", inspectionEventId);
-                params.put("inspectionEntry", imgJsonObjString);
+            return responseString;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // setting progress bar to zero
+            progressBar.setProgress(0);
+            super.onPreExecute();
 
 
-                return params;
-            }
+        }
 
-        };
-        requestQueue.add(request);
-//////////////////////////////////////////////////////
+        @Override
+        protected void onPostExecute(String result) {
+            Log.d("Response from server: ", result);
+
+            // showing the server response in an alert dialog
+            showAlert(result);
+
+            super.onPostExecute(result);
+
+        }
 
     }
 
@@ -288,13 +398,13 @@ public class ImageUploadActivity extends ActionBarActivity {
         String mlatitude = theLatitude;
         String mlongitude = theLongitude;
         String imgcurTime = dateFormat.format(new Date());
-        String encImage ="data:image/jpg;base64," + encodedString;
-        String maccess = "";
+        String encImage = "data:image/jpg;base64," + encodedString;
+        String maccess = "readWrite";
 
 
         try {
             JSONObject inspEntryObj = new JSONObject();
-            inspEntryObj.put("notes", mnotes );
+            inspEntryObj.put("notes", mnotes);
             inspEntryObj.put("dateAcquired", imgcurTime);
             inspEntryObj.put("image", encImage);
             inspEntryObj.put("access", maccess);
@@ -328,43 +438,11 @@ public class ImageUploadActivity extends ActionBarActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
         byte[] byte_arr = stream.toByteArray();
         // Encode Image to String
-        encodedString =  Base64.encodeToString(byte_arr, 0);
+        encodedString = Base64.encodeToString(byte_arr, 0);
         return "";
 
     }
 
-//    private ArrayList<ListProjectsModel> parseJsonObjectResponse(JSONObject response) {
-//        ArrayList<ListProjectsModel> listProjects = new ArrayList<>();
-//
-//        if (response == null || response.length() == 0) {
-//
-//        }
-//        try {
-//            StringBuilder data = new StringBuilder();
-//            JSONArray arrayProjects = response.getJSONArray(KEY_PROJECTS);
-//            for (int i = 0; i < arrayProjects.length(); i++) {
-//                JSONObject currentProject = arrayProjects.getJSONObject(i);
-//                String projnum = currentProject.getString(KEY_PROJECTNUMBER);
-//                String projname = currentProject.getString(KEY_PROJECTNAME);
-//                String projloc = currentProject.getString(KEY_PROJECTLOCATION);
-//                String projid = currentProject.getString(KEY_PROJECTID);
-//                data.append(projnum + "\n");
-//
-//                ListProjectsModel listprojectmodel = new ListProjectsModel();
-//                listprojectmodel.setProjectNumber(projnum);
-//                listprojectmodel.setProjectName(projname);
-//                listprojectmodel.setProjectLocation(projloc);
-//                listprojectmodel.setProjectId(projid);
-//                listProjects.add(listprojectmodel);
-//            }
-//
-//            Log.d("proj List", listProjects.toString());
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return listProjects;
-//    }
 
     private void getExtras() {
         // get intent
@@ -372,6 +450,7 @@ public class ImageUploadActivity extends ActionBarActivity {
         //  final String title = i.getExtras().getString("location");
         projectid = i.getExtras().getString("project_id");
         inspectionEventId = i.getExtras().getString("inspection_event_id");
+        trimmedprojid = projectid.trim();
 
 
         Log.d("Extras : ", "" + projectid + " " + inspectionEventId);
@@ -391,110 +470,20 @@ public class ImageUploadActivity extends ActionBarActivity {
     }
 
 
-    // AsyncTask - To convert Image to String
-    public void encodeImagetoString() {
-        new AsyncTask<Void, Void, String>() {
-
-            protected void onPreExecute() {
-
-            }
-
-            ;
-
-            @Override
-            protected String doInBackground(Void... params) {
-                BitmapFactory.Options options = null;
-                options = new BitmapFactory.Options();
-                options.inSampleSize = 3;
-                bitmap = BitmapFactory.decodeFile(imgPath,
-                        options);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                // Must compress the Image to reduce image size to make upload easy
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-                byte[] byte_arr = stream.toByteArray();
-                // Encode Image to String
-                encodedString = "data:image/jpg;base64," + Base64.encodeToString(byte_arr, 0);
-                return "";
-            }
-
-            @Override
-            protected void onPostExecute(String msg) {
-                prgDialog.setMessage("Calling Upload");
-                // Put converted Image string into Async Http Post param
-                // params.put("image", encodedString);
-                // Trigger Image upload
-                triggerImageUpload();
-            }
-        }.execute(null, null, null);
-    }
-
-    public void triggerImageUpload() {
-        makeHTTPCall();
-    }
-
-    // Make Http call to upload Image to Php server
-    public void makeHTTPCall() {
-        prgDialog.setMessage("Invoking Php");
-//        AsyncHttpClient client = new AsyncHttpClient();
-//        // Don't forget to change the IP address to your LAN address. Port no as well.
-//        client.post("http://192.168.2.5:9000/imgupload/upload_image.php",
-//                params, new AsyncHttpResponseHandler() {
-//                    // When the response returned by REST has Http
-//                    // response code '200'
-//                    @Override
-//                    public void onSuccess(String response) {
-//                        // Hide Progress Dialog
-//                        prgDialog.hide();
-//                        Toast.makeText(getApplicationContext(), response,
-//                                Toast.LENGTH_LONG).show();
-//                    }
-//
-//                    // When the response returned by REST has Http
-//                    // response code other than '200' such as '404',
-//                    // '500' or '403' etc
-//                    @Override
-//                    public void onFailure(int statusCode, Throwable error,
-//                                          String content) {
-//                        // Hide Progress Dialog
-//                        prgDialog.hide();
-//                        // When Http response code is '404'
-//                        if (statusCode == 404) {
-//                            Toast.makeText(getApplicationContext(),
-//                                    "Requested resource not found",
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-//                        // When Http response code is '500'
-//                        else if (statusCode == 500) {
-//                            Toast.makeText(getApplicationContext(),
-//                                    "Something went wrong at server end",
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-//                        // When Http response code other than 404, 500
-//                        else {
-//                            Toast.makeText(
-//                                    getApplicationContext(),
-//                                    "Error Occured \n Most Common Error: \n1. Device not connected to Internet\n2. Web App is not deployed in App server\n3. App server is not running\n HTTP Status code : "
-//                                            + statusCode, Toast.LENGTH_LONG)
-//                                    .show();
-//                        }
-//                    }
-//                });
-    }
-
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
         // Dismiss the progress bar when application is closed
-        if (prgDialog != null) {
-            prgDialog.dismiss();
+        if (pDialog != null) {
+            pDialog.dismiss();
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_image_upload, menu);
         return true;
     }
 
@@ -509,10 +498,7 @@ public class ImageUploadActivity extends ActionBarActivity {
         if (id == R.id.logout) {
             logoutUser();
         }
-        if (id == R.id.gallery) {
-            Intent intent = new Intent(ImageUploadActivity.this, ImageGalleryActivity.class);
-            startActivity(intent);
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -526,7 +512,8 @@ public class ImageUploadActivity extends ActionBarActivity {
         startActivity(intent);
         finish();
     }
-    private void getGPS(){
+
+    private void getGPS() {
         gps = new GPSTracker(ImageUploadActivity.this);
 
         if (gps.canGetLocation()) {
@@ -534,7 +521,6 @@ public class ImageUploadActivity extends ActionBarActivity {
             double longitude = gps.getLongitude();
             theLatitude = String.valueOf(latitude);
             theLongitude = String.valueOf(longitude);
-
 
 
             Toast.makeText(getApplicationContext(), "Your location is -\nLat: " + latitude + "\nLong: "

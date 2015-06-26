@@ -56,6 +56,8 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
     private ProgressDialog pDialog;
     private SessionManager session;
     public static final String URL_LISTEVENTS = "http://10.0.3.2/servicesample/services.php";
+    public static final String URL_ONLINE_SERVICE = "http://dpw.developerexpert.com/demo/dpw/services.php";
+    public static final String URL_SKAT_SERVICE = "http://skatdev.com/tst/dpw/dpw2606/services.php";
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
     private SQLiteHandler db;
@@ -72,7 +74,7 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
         // Toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        toolbar.setLogo(R.drawable.inspect_logo);
+        toolbar.setLogo(R.drawable.inspect_logo_080615);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         //
         // Progress dialog
@@ -126,7 +128,7 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
         Log.d("fields: ", mUserName + " " + mToken);
 
         //////////////////////////////////// STRING REQUEST
-        StringRequest request = new StringRequest(Request.Method.POST, URL_LISTEVENTS, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, URL_ONLINE_SERVICE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 hideDialog();
@@ -276,7 +278,7 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_todolist, menu);
         return true;
     }
 
@@ -291,10 +293,7 @@ public class TodoListActivity extends ActionBarActivity implements InspectionLis
         if (id == R.id.logout) {
             logoutUser();
         }
-        if (id == R.id.gallery) {
-            Intent intent = new Intent(TodoListActivity.this, ImageGalleryActivity.class);
-            startActivity(intent);
-        }
+
         return super.onOptionsItemSelected(item);
     }
 

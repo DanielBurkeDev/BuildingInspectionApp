@@ -26,7 +26,7 @@ import inspectplus.dpwgroup.com.inspectplus.utils.SessionManager;
 
 public class TodoListDetailActivity extends ActionBarActivity {
     private String projectid, projnum, projname, inspEventCat, buildingElementCat, assignedcertifier,
-            assignedcertifiercompany, ancilliarycertifier,ancilliarycompany, inspectionplanrefnum,
+            assignedcertifiercompany, ancilliarycertifier, ancilliarycompany, inspectionplanrefnum,
             inspectioneventnum, responseactionoriginator, scheduleddate, inspectioneventid;
     private TextView checkLabel, insp_plan_ref_num, insp_event_ref_num, ass_certifier,
             ass_certifier_co, proj_num, proj_name, resp_action_orig, anc_certifier, anc_cert_co;
@@ -37,7 +37,8 @@ public class TodoListDetailActivity extends ActionBarActivity {
     private SessionManager session;
     private SQLiteHandler db;
 
-    Button btnShowLocation;
+    private Button btnShowLocation, btncamera, btnupload;
+
     GPSTracker gps;
 
 
@@ -51,7 +52,7 @@ public class TodoListDetailActivity extends ActionBarActivity {
         // Toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        toolbar.setLogo(R.drawable.inspect_logo);
+        toolbar.setLogo(R.drawable.inspect_logo_080615);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         //
         // Progress dialog
@@ -93,26 +94,12 @@ public class TodoListDetailActivity extends ActionBarActivity {
 
         //  checkLabel.setText(todo);
 
-        btnShowLocation = (Button) findViewById(R.id.show_location);
-
-        btnShowLocation.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                gps = new GPSTracker(TodoListDetailActivity.this);
-
-                if (gps.canGetLocation()) {
-                    double latitude = gps.getLatitude();
-                    double longitude = gps.getLongitude();
-
-                    Toast.makeText(getApplicationContext(), "Your location is -\nLat: " + latitude + "\nLong: "
-                            + longitude, Toast.LENGTH_LONG).show();
-                } else {
-                    gps.showSettingsAlert();
-                }
-            }
-        });
+        btnupload = (Button) findViewById(R.id.upload);
+        btnupload.setOnClickListener(new ButtonListener());
+        btncamera = (Button) findViewById(R.id.camera);
+        btncamera.setOnClickListener(new ButtonListener());
     }
+
 
     private void showDialog() {
         if (!pDialog.isShowing())
@@ -128,7 +115,7 @@ public class TodoListDetailActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_todolistdetail, menu);
         return true;
     }
 
@@ -143,7 +130,7 @@ public class TodoListDetailActivity extends ActionBarActivity {
         if (id == R.id.logout) {
             logoutUser();
         }
-        if(id==R.id.gallery){
+        if (id == R.id.upload) {
             Intent intent = new Intent(TodoListDetailActivity.this, ImageUploadActivity.class);
             intent.putExtra("project_id", projectid);
             intent.putExtra("inspection_event_id", inspectioneventid);
@@ -163,11 +150,6 @@ public class TodoListDetailActivity extends ActionBarActivity {
         Intent intent = new Intent(TodoListDetailActivity.this, SplashActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    public void sendMessage(View view) {
-        Intent intent = new Intent(TodoListDetailActivity.this, ImageGalleryActivity.class);
-        startActivity(intent);
     }
 
     private void getExtras() {
@@ -216,6 +198,49 @@ public class TodoListDetailActivity extends ActionBarActivity {
     }
 
 
+    // Button Listener
+    private class ButtonListener implements View.OnClickListener {
+
+        public void onClick(View v) {
+
+
+            switch (v.getId()) {
+                case R.id.upload:
+                    Intent intent = new Intent(TodoListDetailActivity.this, ImageUploadActivity.class);
+                    intent.putExtra("project_id", projectid);
+                    intent.putExtra("inspection_event_id", inspectioneventid);
+                    startActivity(intent);
+                    break;
+                case R.id.camera:
+                    Intent i = new Intent(TodoListDetailActivity.this, ImageGalleryActivity.class);
+                    startActivity(i);
+                    break;
+
+                default:
+                    Toast.makeText(getApplicationContext(), "No options selected",
+                            Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+    //        btnShowLocation.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                gps = new GPSTracker(TodoListDetailActivity.this);
+//
+//                if (gps.canGetLocation()) {
+//                    double latitude = gps.getLatitude();
+//                    double longitude = gps.getLongitude();
+//
+//                    Toast.makeText(getApplicationContext(), "Your location is -\nLat: " + latitude + "\nLong: "
+//                            + longitude, Toast.LENGTH_LONG).show();
+//                } else {
+//                    gps.showSettingsAlert();
+//                }
+//            }
+//        });
+//    }
 }
 
 

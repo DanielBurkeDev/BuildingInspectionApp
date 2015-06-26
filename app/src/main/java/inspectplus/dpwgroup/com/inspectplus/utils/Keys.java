@@ -25,6 +25,6 @@ public interface Keys {
         public static final String KEY_BUILDING_ELEMENT_CLASSIFICATION="buildingElementClassification";
         public static final String KEY_RESPONSE_ORIGINATOR="responseActionOriginator";
         public static final String KEY_MEDIA_ID="mediaId";
-        public static final String KEY_SCHEDULED_DATE="scheduledDate";
+        public static final String KEY_SCHEDULED_DATE="$scheduledDate";
     }
 }

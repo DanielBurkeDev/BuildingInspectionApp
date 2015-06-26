@@ -111,7 +111,7 @@ public class ImageGalleryActivity extends ActionBarActivity implements OnClickLi
         if (id == R.id.logout) {
             logoutUser();
         }
-        if(id==R.id.gallery){
+        if(id==R.id.upload){
             Intent intent = new Intent(ImageGalleryActivity.this, ImageGalleryActivity.class);
             startActivity(intent);
         }

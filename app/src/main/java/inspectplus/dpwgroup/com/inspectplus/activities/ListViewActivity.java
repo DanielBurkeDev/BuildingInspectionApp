@@ -70,6 +70,8 @@ public class ListViewActivity extends ActionBarActivity implements projListAdapt
     private ProgressDialog pDialog;
     private SessionManager session;
     public static final String URL_LISTPROJECTS = "http://10.0.3.2/servicesample/services.php";
+    public static final String URL_ONLINE_SERVICE = "http://dpw.developerexpert.com/demo/dpw/services.php";
+    public static final String URL_SKAT_SERVICE = "http://skatdev.com/tst/dpw/dpw2606/services.php";
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
 
@@ -159,7 +161,7 @@ public class ListViewActivity extends ActionBarActivity implements projListAdapt
         Log.d("fields: ", mUserName + " " + mToken);
 
         //////////////////////////////////// STRING REQUEST
-        StringRequest request = new StringRequest(Request.Method.POST, URL_LISTPROJECTS, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, URL_ONLINE_SERVICE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 hideDialog();
@@ -285,7 +287,7 @@ public class ListViewActivity extends ActionBarActivity implements projListAdapt
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_listview, menu);
         return true;
     }
 
@@ -300,10 +302,7 @@ public class ListViewActivity extends ActionBarActivity implements projListAdapt
         if (id == R.id.logout) {
             logoutUser();
         }
-        if(id==R.id.gallery){
-            Intent intent = new Intent(ListViewActivity.this, ImageUploadActivity.class);
-            startActivity(intent);
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
