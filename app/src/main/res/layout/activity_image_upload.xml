@@ -12,18 +12,21 @@
         android:id="@+id/imgView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"></ImageView>
+        android:layout_weight="1"
+        android:layout_margin="@dimen/margin8dp"/>
 
 
     <Button
         android:id="@+id/buttonLoadPicture"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="0"
         android:background="@drawable/rounded_button"
         android:onClick="loadImagefromGallery"
-        android:text="Load Picture" />
+        android:text="Load Picture"
+        android:paddingLeft="@dimen/margin8dp"
+        android:paddingRight="@dimen/margin8dp"/>
 
     <TextView
         android:id="@+id/txtPercentage"
@@ -47,11 +50,15 @@
         android:minLines="6" />
 
     <Button
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:paddingLeft="@dimen/margin8dp"
+        android:paddingRight="@dimen/margin8dp"
         android:background="@drawable/rounded_button"
         android:onClick="uploadImage"
-        android:text="Upload" />
+        android:text="Upload"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/margin8dp"/>
 
 </LinearLayout>
